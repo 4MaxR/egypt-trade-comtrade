@@ -1,0 +1,1066 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Egypt Trade Monitor</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Egypt's merchandise trade 2014–2025 from UN Comtrade: balance, partners, products, energy, wheat and customs mirror checks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a customs-manifest masthead (declaration fields), a sticky section index, then one
+   full-width "finding" per section: question, answer headline, chart, how-to-read, data table. */
+:root {
+  --paper: #f3f5f8;
+  --panel: #ffffff;
+  --ink: #0f1b2d;
+  --ink-2: #47536a;
+  --ink-3: #6f7a8e;
+  --rule: #dce2ea;
+  --rule-2: #eef1f5;
+  --accent: #0a6c74;
+  --accent-soft: #e2f1f1;
+  --band: #e9eef4;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s-other: #a7afbc;
+  --good: #1d7a46; --good-soft: #e3f3ea;
+  --warn: #9a6200; --warn-soft: #fbf0d9;
+  --crit: #b42828; --crit-soft: #fbe6e6;
+  --shadow: 0 1px 2px rgb(15 27 45 / .05), 0 4px 16px rgb(15 27 45 / .04);
+  --f-display: "IBM Plex Sans Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --t-xs: .75rem; --t-sm: .8125rem; --t-base: .9375rem; --t-md: 1.0625rem;
+  --t-lg: 1.375rem; --t-xl: 1.875rem; --t-2xl: clamp(2rem, 4.6vw, 3.25rem);
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0c121c; --panel: #121a27; --ink: #e9eef6; --ink-2: #b2bccb; --ink-3: #8b96a8;
+    --rule: #243045; --rule-2: #1a2333; --accent: #45b8b4; --accent-soft: #10302f; --band: #1a2436;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s-other: #5f6a7c;
+    --good: #5cc98a; --good-soft: #12301f; --warn: #e5b44c; --warn-soft: #33270d;
+    --crit: #f08484; --crit-soft: #3a1717;
+    --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 16px rgb(0 0 0 / .2);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0c121c; --panel: #121a27; --ink: #e9eef6; --ink-2: #b2bccb; --ink-3: #8b96a8;
+  --rule: #243045; --rule-2: #1a2333; --accent: #45b8b4; --accent-soft: #10302f; --band: #1a2436;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s-other: #5f6a7c;
+  --good: #5cc98a; --good-soft: #12301f; --warn: #e5b44c; --warn-soft: #33270d;
+  --crit: #f08484; --crit-soft: #3a1717;
+  --shadow: 0 1px 2px rgb(0 0 0 / .3), 0 4px 16px rgb(0 0 0 / .2);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 var(--t-base)/1.55 var(--f-body);
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 1180px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+p { margin: 0; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.mono { font-family: var(--f-mono); }
+.num { font-variant-numeric: tabular-nums; }
+.eyebrow {
+  font: 500 var(--t-xs)/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* ---------- Masthead ---------- */
+.masthead { border-bottom: 1px solid var(--rule); background: var(--panel); }
+.masthead .wrap { padding-block: 36px 28px; display: grid; gap: 22px; }
+.mast-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.stamp {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 var(--t-xs)/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase;
+  color: var(--accent); border: 1.5px solid var(--accent); border-radius: 4px; padding: 6px 9px;
+}
+.stamp svg { width: 14px; height: 14px; }
+h1 { font-size: var(--t-2xl); font-weight: 700; line-height: 1.02; margin-top: 14px; }
+.lede { font-size: var(--t-md); color: var(--ink-2); max-width: 66ch; margin-top: 12px; }
+.theme-btn {
+  font: 500 var(--t-sm)/1 var(--f-body); color: var(--ink-2); background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.theme-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+.decl {
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--rule);
+  gap: 1px;
+}
+.decl > div { background: var(--panel); padding: 10px 14px 12px; min-width: 0; }
+.decl dt { font: 500 .6875rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+.decl dd { margin: 5px 0 0; font: 600 var(--t-base)/1.25 var(--f-body); }
+.decl dd small { display: block; font: 400 var(--t-xs)/1.3 var(--f-body); color: var(--ink-3); margin-top: 2px; }
+@media (max-width: 900px) { .decl { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .decl { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Section index ---------- */
+.index {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.index .wrap { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; padding-block: 8px; }
+.index .wrap::-webkit-scrollbar { display: none; }
+.index a {
+  flex: none; text-decoration: none; color: var(--ink-2); font: 500 var(--t-sm)/1 var(--f-body);
+  padding: 8px 12px; border-radius: 999px; white-space: nowrap;
+}
+.index a:hover { background: var(--rule-2); color: var(--ink); }
+.index a.on { background: var(--ink); color: var(--paper); }
+
+main .wrap { display: grid; gap: 28px; padding-block: 32px 56px; }
+
+/* ---------- Summary ---------- */
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 900px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 440px) { .kpis { grid-template-columns: minmax(0, 1fr); } }
+.kpi {
+  background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 16px 16px 12px; display: grid; gap: 4px; min-width: 0; box-shadow: var(--shadow);
+}
+.kpi .label { font: 500 var(--t-sm)/1.3 var(--f-body); color: var(--ink-2); display: flex; align-items: center; gap: 8px; }
+.kpi .label i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
+.kpi .value { font: 700 var(--t-xl)/1.1 var(--f-display); font-variant-numeric: tabular-nums; letter-spacing: -.01em; }
+.kpi .delta { font: 500 var(--t-xs)/1.3 var(--f-mono); color: var(--ink-3); }
+.kpi .delta b { font-weight: 500; }
+.kpi .delta .up { color: var(--ink); }
+.kpi svg { width: 100%; height: 44px; display: block; margin-top: 6px; overflow: visible; }
+
+.insights { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 960px) { .insights { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .insights { grid-template-columns: minmax(0, 1fr); } }
+.insight {
+  background: var(--panel); border: 1px solid var(--rule); border-radius: var(--radius);
+  padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0;
+  text-decoration: none; color: inherit; transition: border-color .15s, transform .15s;
+}
+.insight:hover { border-color: var(--ink-3); transform: translateY(-1px); }
+.insight h3 { font-size: var(--t-md); font-weight: 600; line-height: 1.25; }
+.insight p { color: var(--ink-2); font-size: var(--t-sm); }
+.insight .go { font: 500 var(--t-xs)/1 var(--f-mono); color: var(--accent); margin-top: 2px; }
+.chip {
+  justify-self: start; display: inline-flex; align-items: center; gap: 6px;
+  font: 500 .6875rem/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase;
+  padding: 5px 8px; border-radius: 4px;
+}
+.chip svg { width: 11px; height: 11px; }
+.chip.risk { color: var(--crit); background: var(--crit-soft); }
+.chip.watch { color: var(--warn); background: var(--warn-soft); }
+.chip.shift { color: var(--accent); background: var(--accent-soft); }
+.chip.pass { color: var(--good); background: var(--good-soft); }
+
+.section-head { display: grid; gap: 6px; }
+.section-head h2 { font-size: var(--t-lg); font-weight: 600; }
+.summary-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.summary-title p { color: var(--ink-3); font-size: var(--t-sm); }
+
+/* ---------- Finding panels ---------- */
+.finding {
+  background: var(--panel); border: 1px solid var(--rule); border-radius: 14px;
+  box-shadow: var(--shadow); padding: 22px 22px 18px; display: grid; gap: 16px; min-width: 0;
+}
+@media (max-width: 520px) { .finding { padding: 18px 14px 14px; border-radius: 12px; } }
+.finding header { display: grid; gap: 8px; }
+.qline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.qline .q { font: 500 var(--t-xs)/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.finding h2 { font-size: clamp(1.35rem, 2.6vw, 1.75rem); font-weight: 700; line-height: 1.15; max-width: 30ch; }
+.finding .context { color: var(--ink-2); max-width: 72ch; }
+.finding .context b { color: var(--ink); font-weight: 600; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.seg { display: inline-flex; background: var(--rule-2); border-radius: 8px; padding: 3px; gap: 2px; }
+.seg button {
+  font: 500 var(--t-sm)/1 var(--f-body); color: var(--ink-2); background: transparent; border: 0;
+  padding: 7px 12px; border-radius: 6px; cursor: pointer;
+}
+.seg button:hover { color: var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgb(0 0 0 / .12); }
+.select { display: inline-flex; align-items: center; gap: 8px; font-size: var(--t-sm); color: var(--ink-2); }
+.select select {
+  font: 500 var(--t-sm)/1 var(--f-body); color: var(--ink); background: var(--panel);
+  border: 1px solid var(--rule); border-radius: 6px; padding: 6px 8px;
+}
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: var(--t-sm); color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; flex: none; }
+.legend i.line { height: 3px; border-radius: 2px; width: 16px; }
+.legend i.hollow { background: transparent !important; border: 2px solid var(--ink-3); border-radius: 50%; width: 11px; height: 11px; }
+.legend i.band { background: var(--band); border: 1px solid var(--rule); }
+
+.chart { position: relative; width: 100%; min-width: 0; }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.chart text { font-family: var(--f-body); }
+.split { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 860px) { .split { grid-template-columns: minmax(0, 1fr); } }
+.side { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.side h3 { font-size: var(--t-md); font-weight: 600; }
+.stat-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.stat { border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; }
+.stat .k { font: 500 .6875rem/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.stat .v { font: 700 var(--t-lg)/1.15 var(--f-display); font-variant-numeric: tabular-nums; margin-top: 4px; }
+.stat .s { font-size: var(--t-xs); color: var(--ink-3); }
+.stat .v.neg { color: var(--crit); }
+.stat .v.pos { color: var(--good); }
+
+.how {
+  display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start;
+  background: var(--rule-2); border-radius: 8px; padding: 10px 12px; font-size: var(--t-sm); color: var(--ink-2);
+}
+.how svg { width: 16px; height: 16px; color: var(--accent); margin-top: 2px; }
+.how b { color: var(--ink); font-weight: 600; }
+
+details.table { border-top: 1px solid var(--rule); padding-top: 10px; }
+details.table summary {
+  cursor: pointer; font: 500 var(--t-sm)/1 var(--f-body); color: var(--ink-2); list-style: none;
+  display: inline-flex; align-items: center; gap: 8px; padding: 4px 0;
+}
+details.table summary::-webkit-details-marker { display: none; }
+details.table summary::before { content: "+"; font-family: var(--f-mono); width: 16px; text-align: center; color: var(--accent); }
+details.table[open] summary::before { content: "−"; }
+.tscroll { overflow-x: auto; margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: var(--t-sm); font-variant-numeric: tabular-nums; }
+th, td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
+th { font: 500 .6875rem/1.2 var(--f-mono); letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); border-bottom-color: var(--rule); }
+th:first-child, td:first-child { text-align: left; }
+tbody tr:hover td { background: var(--rule-2); }
+
+/* Mirror outliers */
+.outliers td .bar { display: inline-block; vertical-align: middle; height: 8px; border-radius: 2px; }
+.ratio { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-weight: 500; padding: 3px 7px; border-radius: 4px; }
+.ratio.crit { color: var(--crit); background: var(--crit-soft); }
+.ratio.warn { color: var(--warn); background: var(--warn-soft); }
+.ratio.ok { color: var(--good); background: var(--good-soft); }
+
+/* ---------- Data integrity & about ---------- */
+.checks { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+.check { border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; display: grid; gap: 6px; align-content: start; }
+.check .t { font-weight: 600; font-size: var(--t-sm); }
+.check .d { color: var(--ink-3); font-size: var(--t-xs); }
+.hsline { display: grid; gap: 6px; }
+.hsline .track { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 2px; }
+.hsline .track div { height: 26px; display: grid; place-items: center; font: 500 .6875rem/1 var(--f-mono); color: #fff; }
+.hsline .h4 { background: var(--ink-3); }
+.hsline .h6 { background: var(--accent); }
+.hsline .track div:first-child { border-radius: 4px 0 0 4px; }
+.hsline .track div:last-child { border-radius: 0 4px 4px 0; }
+.hsline .lab { display: grid; grid-template-columns: 8fr 4fr; gap: 2px; font-size: var(--t-xs); color: var(--ink-2); }
+.hsline .lab span:last-child { text-align: right; }
+
+.pipeline { display: flex; align-items: stretch; gap: 0; overflow-x: auto; padding-bottom: 4px; }
+.stage { flex: 1 0 128px; border: 1px solid var(--rule); border-radius: 8px; padding: 10px 12px; display: grid; gap: 4px; align-content: start; background: var(--panel); }
+.stage .n { font: 700 var(--t-md)/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+.stage .k { font: 500 .6875rem/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.stage .d { font-size: var(--t-xs); color: var(--ink-3); }
+.arrow { flex: none; width: 22px; display: grid; place-items: center; color: var(--ink-3); }
+.about-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; }
+@media (max-width: 860px) { .about-grid { grid-template-columns: minmax(0, 1fr); } }
+dl.gloss { margin: 0; display: grid; gap: 10px; }
+dl.gloss div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--rule-2); }
+dl.gloss dt { font: 600 var(--t-sm)/1.4 var(--f-mono); color: var(--ink); }
+dl.gloss dd { margin: 0; font-size: var(--t-sm); color: var(--ink-2); }
+@media (max-width: 440px) { dl.gloss div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+ul.limits { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: var(--t-sm); color: var(--ink-2); }
+ul.limits b { color: var(--ink); font-weight: 600; }
+
+footer { border-top: 1px solid var(--rule); }
+footer .wrap { padding-block: 22px 32px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: var(--t-sm); color: var(--ink-3); }
+
+/* ---------- Tooltip ---------- */
+.tip {
+  position: fixed; z-index: 50; pointer-events: none; min-width: 168px; max-width: 280px;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--rule); border-radius: 8px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / .16); padding: 10px 12px; font-size: var(--t-sm);
+  opacity: 0; transform: translateY(4px); transition: opacity .12s, transform .12s;
+}
+.tip.on { opacity: 1; transform: none; }
+.tip .th { font: 600 var(--t-sm)/1.2 var(--f-body); margin-bottom: 6px; }
+.tip .row { display: grid; grid-template-columns: 10px 1fr auto; gap: 8px; align-items: center; padding: 2px 0; }
+.tip .row i { width: 10px; height: 10px; border-radius: 3px; }
+.tip .row span:last-child { font-variant-numeric: tabular-nums; font-weight: 600; }
+.tip .note { color: var(--ink-3); font-size: var(--t-xs); margin-top: 6px; border-top: 1px solid var(--rule-2); padding-top: 6px; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-info" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4.5M8 4.6v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 16 16"><path d="M8 1.8 15 14H1L8 1.8Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 6.5v3.2M8 11.8v.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 16 16"><path d="M1 8s2.6-4.8 7-4.8S15 8 15 8s-2.6 4.8-7 4.8S1 8 1 8Z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="8" r="2" fill="currentColor"/></symbol>
+  <symbol id="i-shift" viewBox="0 0 16 16"><path d="M2 11h10l-3-3M14 5H4l3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 16 16"><path d="m3 8.5 3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 16 16"><path d="M3 8h10m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="mast-top">
+      <div>
+        <span class="stamp"><svg><use href="#i-check"/></svg>Trade intelligence brief · UN Comtrade</span>
+        <h1>Egypt's Trade, 2014–2025</h1>
+        <p class="lede">What Egypt buys and sells, who it depends on, where the risks are, and whether its customs records agree with its trading partners'. Every figure comes from official customs data that Egypt and its partners report to the United Nations.</p>
+      </div>
+      <button class="theme-btn" id="theme-btn" type="button" aria-label="Switch colour theme"><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.5a6.5 6.5 0 1 0 0 13Z" fill="currentColor"/><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Theme</span></button>
+    </div>
+    <dl class="decl" id="decl"></dl>
+  </div>
+</header>
+
+<nav class="index" aria-label="Sections">
+  <div class="wrap" id="index">
+    <a href="#summary">Summary</a>
+    <a href="#balance">Trade balance</a>
+    <a href="#partners">Partners</a>
+    <a href="#products">Products</a>
+    <a href="#energy">Energy</a>
+    <a href="#wheat">Wheat</a>
+    <a href="#mirror">Customs mirror check</a>
+    <a href="#integrity">Data integrity</a>
+    <a href="#about">About the data</a>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap">
+
+    <section id="summary" class="section-head" aria-labelledby="sum-h">
+      <div class="summary-title">
+        <h2 id="sum-h">2025 at a glance</h2>
+        <p>Sparklines show 2014–2025. Hover any chart for exact values.</p>
+      </div>
+    </section>
+    <div class="kpis" id="kpis"></div>
+
+    <section class="section-head" aria-labelledby="six-h">
+      <h2 id="six-h">Six things a decision-maker should know</h2>
+    </section>
+    <div class="insights" id="insights"></div>
+
+    <!-- Q1 -->
+    <section class="finding" id="balance" aria-labelledby="bal-h">
+      <header>
+        <div class="qline"><span class="q">Q1 · Trade balance</span><span class="chip risk"><svg><use href="#i-alert"/></svg>Risk</span></div>
+        <h2 id="bal-h">Exports doubled, but Egypt still buys about two dollars abroad for every dollar it sells</h2>
+        <p class="context" id="bal-ctx"></p>
+      </header>
+      <div class="toolbar"><div class="legend" id="bal-legend"></div></div>
+      <div class="chart" id="bal-chart"></div>
+      <div class="how"><svg><use href="#i-info"/></svg><p><b>How to read it:</b> the orange line is what Egypt paid for imports and the blue line is what it earned from exports, in billions of US dollars. The shaded gap between them is the trade deficit. Dashed markers show the two currency shocks.</p></div>
+      <details class="table"><summary>Show the numbers</summary><div class="tscroll" id="bal-table"></div></details>
+    </section>
+
+    <!-- Q2 -->
+    <section class="finding" id="partners" aria-labelledby="par-h">
+      <header>
+        <div class="qline"><span class="q">Q2 · Partners &amp; dependence</span><span class="chip watch"><svg><use href="#i-eye"/></svg>Watch</span></div>
+        <h2 id="par-h">Imports are concentrating on fewer suppliers, led by China</h2>
+        <p class="context" id="par-ctx"></p>
+      </header>
+      <div class="split">
+        <div class="side" style="gap:14px">
+          <div class="toolbar">
+            <div class="seg" role="group" aria-label="Trade flow" id="par-flow">
+              <button type="button" aria-pressed="true" data-v="import">Imports</button>
+              <button type="button" aria-pressed="false" data-v="export">Exports</button>
+            </div>
+            <div class="legend" id="par-legend"></div>
+          </div>
+          <div class="chart" id="par-chart"></div>
+        </div>
+        <aside class="side">
+          <h3>How concentrated is it?</h3>
+          <div class="stat-pair" id="hhi-stats"></div>
+          <div class="legend" id="hhi-legend"></div>
+          <div class="chart" id="hhi-chart"></div>
+          <p class="context" style="font-size:var(--t-xs);color:var(--ink-3)">HHI adds up the squared market shares of every partner (0–10,000). Higher means more dependence on a few countries; competition authorities treat 1,500+ as "moderately concentrated".</p>
+        </aside>
+      </div>
+      <div class="how"><svg><use href="#i-info"/></svg><p><b>How to read it:</b> each line is one country's share of Egypt's total imports (or exports, with the toggle). The five largest partners over the whole period are shown. A rising line means Egypt relies more on that country.</p></div>
+      <details class="table"><summary>Show the numbers</summary><div class="tscroll" id="par-table"></div></details>
+    </section>
+
+    <!-- Q3 -->
+    <section class="finding" id="products" aria-labelledby="pro-h">
+      <header>
+        <div class="qline"><span class="q">Q3 · Products (HS chapters)</span><span class="chip shift"><svg><use href="#i-shift"/></svg>Shift</span></div>
+        <h2 id="pro-h">Fuel now dominates the import bill, and gold has become a leading export</h2>
+        <p class="context" id="pro-ctx"></p>
+      </header>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Trade flow" id="pro-flow">
+          <button type="button" aria-pressed="true" data-v="import">Imports</button>
+          <button type="button" aria-pressed="false" data-v="export">Exports</button>
+        </div>
+        <label class="select" for="pro-year">Compare 2014 with
+          <select id="pro-year"></select>
+        </label>
+      </div>
+      <div class="legend" id="pro-legend"></div>
+      <div class="chart" id="pro-chart"></div>
+      <div class="how"><svg><use href="#i-info"/></svg><p><b>How to read it:</b> each row is a product chapter of the Harmonized System (HS), the customs classification used worldwide. The hollow dot is its share of the total in 2014 and the solid dot its share in the selected year. A long bar means the product's weight in Egypt's trade changed a lot.</p></div>
+      <details class="table"><summary>Show the numbers</summary><div class="tscroll" id="pro-table"></div></details>
+    </section>
+
+    <!-- Q4 -->
+    <section class="finding" id="energy" aria-labelledby="ene-h">
+      <header>
+        <div class="qline"><span class="q">Q4 · Energy</span><span class="chip risk"><svg><use href="#i-alert"/></svg>Risk</span></div>
+        <h2 id="ene-h">Natural gas turned from a $6.9bn surplus into a $9.7bn bill in three years</h2>
+        <p class="context" id="ene-ctx"></p>
+      </header>
+      <div class="split">
+        <div class="side" style="gap:14px">
+          <div class="toolbar">
+            <div class="seg" role="group" aria-label="Energy product" id="ene-hs">
+              <button type="button" aria-pressed="true" data-v="2711">Gas &amp; LNG</button>
+              <button type="button" aria-pressed="false" data-v="2710">Refined fuels</button>
+              <button type="button" aria-pressed="false" data-v="2709">Crude oil</button>
+            </div>
+            <div class="legend" id="ene-legend"></div>
+          </div>
+          <div class="chart" id="ene-chart"></div>
+        </div>
+        <aside class="side">
+          <h3 id="ene-side-h">Net position (exports − imports)</h3>
+          <div class="stat-pair" id="ene-stats"></div>
+          <div class="chart" id="ene-net"></div>
+          <p class="context" style="font-size:var(--t-xs);color:var(--ink-3)">Green bars are years Egypt earned more than it spent on this product; red bars are years it spent more.</p>
+        </aside>
+      </div>
+      <div class="how"><svg><use href="#i-info"/></svg><p><b>How to read it:</b> blue is what Egypt sold abroad and orange is what it bought, in USD bn. Where orange sits above blue, the product costs Egypt foreign currency. Use the toggle to switch between gas (HS 2711), refined fuels (HS 2710) and crude oil (HS 2709).</p></div>
+      <details class="table"><summary>Show the numbers</summary><div class="tscroll" id="ene-table"></div></details>
+    </section>
+
+    <!-- Q5 -->
+    <section class="finding" id="wheat" aria-labelledby="whe-h">
+      <header>
+        <div class="qline"><span class="q">Q5 · Food security · Wheat (HS 1001)</span><span class="chip watch"><svg><use href="#i-eye"/></svg>Watch</span></div>
+        <h2 id="whe-h">The world's largest wheat buyer now gets most of it from one country</h2>
+        <p class="context" id="whe-ctx"></p>
+      </header>
+      <div class="toolbar">
+        <div class="seg" role="group" aria-label="Measure" id="whe-mode">
+          <button type="button" aria-pressed="true" data-v="share">Share of bill</button>
+          <button type="button" aria-pressed="false" data-v="value">USD value</button>
+        </div>
+        <div class="legend" id="whe-legend"></div>
+      </div>
+      <div class="chart" id="whe-chart"></div>
+      <div class="how"><svg><use href="#i-info"/></svg><p><b>How to read it:</b> each bar is one year of Egypt's wheat imports, split by country of origin. Switch to "USD value" to see the size of the bill instead of the split.</p></div>
+      <details class="table"><summary>Show the numbers</summary><div class="tscroll" id="whe-table"></div></details>
+    </section>
+
+    <!-- Q6 -->
+    <section class="finding" id="mirror" aria-labelledby="mir-h">
+      <header>
+        <div class="qline"><span class="q">Q6 · Customs mirror check</span><span class="chip risk"><svg><use href="#i-alert"/></svg>Risk</span></div>
+        <h2 id="mir-h">Partners record more imports from Egypt than Egypt records as exports</h2>
+        <p class="context">Every shipment is declared twice: by the exporting country (valued <b>FOB</b>, at the port of loading) and by the importing country (valued <b>CIF</b>, including freight and insurance). Comparing the two "mirror" records is a standard customs-risk technique for spotting under-declaration, misrouted goods and classification errors.</p>
+      </header>
+      <div class="split">
+        <div class="side" style="gap:14px">
+          <div class="legend" id="mir-legend"></div>
+          <div class="chart" id="mir-chart"></div>
+        </div>
+        <aside class="side">
+          <h3>What "normal" looks like</h3>
+          <p class="context" style="font-size:var(--t-sm)"><b>Imports</b> should sit slightly above 1.0×, because Egypt's CIF value includes freight that the partner's FOB value does not. They mostly do.</p>
+          <p class="context" style="font-size:var(--t-sm)"><b>Exports</b> should sit slightly below 1.0× (about 0.90–0.95×) for the same reason. They sit lower, at <b id="mir-low"></b> in most years. That suggests part of Egypt's exports is not captured in its own records.</p>
+        </aside>
+      </div>
+      <div class="how"><svg><use href="#i-info"/></svg><p><b>How to read it:</b> each line is Egypt's recorded value divided by what its partners recorded for the same trade (same partners, same year). 1.0× means the two sides agree exactly. The shaded band is the normal range for imports once freight and insurance are counted.</p></div>
+      <div class="side">
+        <h3>Largest disagreements in 2023 (flows of $1bn or more)</h3>
+        <div class="tscroll"><table class="outliers" id="mir-outliers"></table></div>
+        <p class="context" style="font-size:var(--t-xs);color:var(--ink-3)">Likely causes, which this data cannot confirm: energy exporters often don't report destinations for petroleum and pipeline gas (Kuwait, Israel), and Gulf re-export hubs blur the country of origin (UAE). Each case needs a product-level mirror check.</p>
+      </div>
+      <details class="table"><summary>Show the yearly numbers</summary><div class="tscroll" id="mir-table"></div></details>
+    </section>
+
+    <!-- Integrity -->
+    <section class="finding" id="integrity" aria-labelledby="int-h">
+      <header>
+        <div class="qline"><span class="q">Data integrity</span><span class="chip pass"><svg><use href="#i-check"/></svg>All checks passed</span></div>
+        <h2 id="int-h">Can these numbers be trusted?</h2>
+        <p class="context">Before any analysis, the pipeline tests the data automatically. These are the results of this build.</p>
+      </header>
+      <div class="checks" id="checks"></div>
+      <div class="hsline">
+        <span class="eyebrow">Product classification in use, by year</span>
+        <div class="track" id="hs-track"></div>
+        <div class="lab"><span>HS2012 (2014–2021)</span><span>HS2022 (2022–2025)</span></div>
+      </div>
+      <details class="table"><summary>Show reconciliation by year</summary><div class="tscroll" id="int-table"></div></details>
+    </section>
+
+    <!-- About -->
+    <section class="finding" id="about" aria-labelledby="abo-h">
+      <header>
+        <div class="qline"><span class="q">About the data</span></div>
+        <h2 id="abo-h">Where the numbers come from and how they were processed</h2>
+        <p class="context"><b>UN Comtrade</b> is the United Nations database of official international trade statistics. Each country's customs authority reports what crossed its border, by product, partner country and year. This dashboard uses Egypt's own reports (reporter code 818) plus every other country's reports of trade with Egypt.</p>
+      </header>
+      <div class="pipeline" id="pipeline"></div>
+      <div class="about-grid">
+        <div class="side">
+          <h3>Glossary</h3>
+          <dl class="gloss">
+            <div><dt>HS code</dt><dd>Harmonized System: the worldwide customs product code. 2 digits give a chapter (27 = mineral fuels), 4 digits a heading (2711 = petroleum gases).</dd></div>
+            <div><dt>CIF</dt><dd>Cost, Insurance &amp; Freight. How importers value goods: the price plus shipping to the border.</dd></div>
+            <div><dt>FOB</dt><dd>Free On Board. How exporters value goods: the price at the port of loading, without shipping.</dd></div>
+            <div><dt>Mirror data</dt><dd>The same trade recorded by the partner country. Comparing both sides reveals reporting gaps.</dd></div>
+            <div><dt>HHI</dt><dd>Herfindahl-Hirschman Index of partner concentration, 0–10,000.</dd></div>
+            <div><dt>Bunkers</dt><dd>Fuel sold to ships and aircraft. Comtrade records it as a partner, not a country.</dd></div>
+            <div><dt>"nes"</dt><dd>"Not elsewhere specified": trade whose partner country was not identified.</dd></div>
+          </dl>
+        </div>
+        <div class="side">
+          <h3>Limitations</h3>
+          <ul class="limits">
+            <li><b>Nominal US dollars.</b> Values are not adjusted for inflation or for the Egyptian pound's exchange rate.</li>
+            <li><b>Goods only.</b> Services such as Suez Canal fees, tourism and remittances are not in Comtrade.</li>
+            <li><b>Late reporters.</b> Mirror data for 2024–2025 covers fewer partners, because some countries file late. 2023 is the most complete recent year.</li>
+            <li><b>Weights unreliable.</b> Within a year, every wheat origin carries the same USD per tonne, so the weights are estimates. Unit prices are not analysed.</li>
+            <li><b>Non-country buckets.</b> 0.5–3.3% of trade each year goes to Bunkers, Free Zones or unidentified areas. It counts in totals but is left out of partner rankings.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Source: UN Comtrade (comtradeplus.un.org), annual data, all values in current USD. Built <span id="built"></span>.</span>
+    <span>Analysis: Mustafa Al-Rouby · Python, DuckDB, SQL</span>
+  </div>
+</footer>
+
+<div class="tip" id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  "use strict";
+  const D = {"years":[2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025],"meta":{"built":"2026-10-19","extracted":"2026-10-19","raw_files":48,"silver_rows":14131,"gold_tables":8,"partners":310,"jobs":[{"name":"egypt_by_partner","description":"Egypt-reported imports and exports, all commodities, by partner (incl. World)","rows":4318},{"name":"egypt_by_hs2","description":"Egypt-reported imports and exports with the World, by HS chapter","rows":2296},{"name":"egypt_strategic_hs4","description":"Egypt-reported trade in strategic HS4 headings, by partner","rows":3957},{"name":"mirror_partners","description":"What every other country reports trading with Egypt (mirror data)","rows":3560}],"checks":{"partner_dev":1.4918577484479556e-10,"hs2_dev":1.118893866447479e-10,"duplicates":0,"years_complete":true,"max_rows_per_call":391}},"balance":[{"year":2014,"hs_version":"H4","imports_usd":71337744441.0,"exports_usd":26812195958.0,"balance_usd":-44525548483.0,"export_coverage_ratio":0.3758486642,"imports_yoy":null,"exports_yoy":null},{"year":2015,"hs_version":"H4","imports_usd":73998025065.793,"exports_usd":21858773824.971,"balance_usd":-52139251240.822,"export_coverage_ratio":0.2953967191,"imports_yoy":0.0372913476,"exports_yoy":-0.1847451115},{"year":2016,"hs_version":"H4","imports_usd":70670153153.47,"exports_usd":22973368854.395,"balance_usd":-47696784299.075,"export_coverage_ratio":0.3250788038,"imports_yoy":-0.0449724423,"exports_yoy":0.0509907389},{"year":2017,"hs_version":"H4","imports_usd":66767508579.595,"exports_usd":26434038479.942,"balance_usd":-40333470099.653,"export_coverage_ratio":0.3959117098,"imports_yoy":-0.0552233779,"exports_yoy":0.1506383172},{"year":2018,"hs_version":"H4","imports_usd":81909517664.928,"exports_usd":29303872573.375,"balance_usd":-52605645091.55299,"export_coverage_ratio":0.3577590665,"imports_yoy":0.2267870916,"exports_yoy":0.108565859},{"year":2019,"hs_version":"H4","imports_usd":76514916839.344,"exports_usd":30505251683.552,"balance_usd":-46009665155.79199,"export_coverage_ratio":0.39868372,"imports_yoy":-0.0658604882,"exports_yoy":0.0409972814},{"year":2020,"hs_version":"H4","imports_usd":70436788934.938,"exports_usd":29322919594.784,"balance_usd":-41113869340.15401,"export_coverage_ratio":0.4163011977,"imports_yoy":-0.0794371628,"exports_yoy":-0.0387583129},{"year":2021,"hs_version":"H4","imports_usd":89206204635.236,"exports_usd":43636851989.261,"balance_usd":-45569352645.97499,"export_coverage_ratio":0.4891683507,"imports_yoy":0.2664717683,"exports_yoy":0.4881482674},{"year":2022,"hs_version":"H6","imports_usd":96188945660.129,"exports_usd":52115727913.297,"balance_usd":-44073217746.832,"export_coverage_ratio":0.5418057923,"imports_yoy":0.0782764053,"exports_yoy":0.1943053987},{"year":2023,"hs_version":"H6","imports_usd":84217629482.006,"exports_usd":42553243151.133,"balance_usd":-41664386330.87299,"export_coverage_ratio":0.5052771422,"imports_yoy":-0.1244562574,"exports_yoy":-0.1834855838},{"year":2024,"hs_version":"H6","imports_usd":94697971473.86,"exports_usd":44846871351.303,"balance_usd":-49851100122.557,"export_coverage_ratio":0.4735779516,"imports_yoy":0.1244435643,"exports_yoy":0.0539001973},{"year":2025,"hs_version":"H6","imports_usd":101003754652.057,"exports_usd":51391290394.801,"balance_usd":-49612464257.256004,"export_coverage_ratio":0.5088057426,"imports_yoy":0.0665883659,"exports_yoy":0.1459281071}],"partners":{"import":[{"name":"China","share":[0.11295070541043097,0.13143664357635745,0.1272799855965692,0.12150257881276194,0.14140191594529739,0.15280306510735325,0.16590295734579805,0.16169450438569083,0.15349214447189732,0.15710416207885466,0.16419128037899905,0.18570970731903375],"value":[8057648557.0,9726052045.927,8994896075.481,8112424473.324,11582162731.976,11691713819.486,11685671590.248,14424153046.623,14764247543.864,13230940112.038,15548581185.587,18757377714.557]},{"name":"USA","share":[0.0728763936221688,0.05886443437705442,0.05381091519632961,0.05852207775066124,0.06700597852724305,0.06566155390437034,0.06802530334657733,0.07183350862306359,0.07228709660946163,0.06166185095043008,0.08038861196652305,0.1264818565853564],"value":[5198837544.0,4355851890.517,3802825618.253,3907373328.313,5488427381.833,5024088336.535,4791483934.058,6407994669.896,6953219607.696,5193014916.518,7612638482.829,12775142410.484]},{"name":"Saudi Arabia","share":[0.038385905251949314,0.03961487167086715,0.04170544824212373,0.062151304811442334,0.06919861950033108,0.06648802743343106,0.05367592671575735,0.07707792249372397,0.08198261320305467,0.06555572224033698,0.08385171744519242,0.09358670925070893],"value":[2738363899.0,2931422266.879,2947330414.605,4149687777.231,5668025546.351,5087325889.881,3780759920.965,6875828926.834,7885821126.464,5520947526.062,7940587546.659,9452609019.852]},{"name":"Germany","share":[0.07765952728687563,0.0776681550171505,0.0857030517588543,0.06786175235347511,0.05105171091734417,0.05516226053096481,0.0567452523249457,0.04725194109483536,0.042753868881979434,0.049461413927852346,0.04642448454590747,0.0430860937868944],"value":[5540055511.0,5747290081.773,6056647793.518,4530960132.487,4181621017.209,4220735777.197,3996953361.072,4215166326.718,4112449570.649,4165523031.832,4396304513.217,4351857245.767]},{"name":"Russia","share":[0.041155215138995005,0.04530864672370659,0.041109704436240485,0.05438889960541085,0.06103771327672846,0.04635830590600706,0.043203604224603606,0.04011169758367485,0.04442536031311635,0.05978791701333536,0.06343517929039479,0.05141807513663783],"value":[2935920220.0,3352750375.958,2905229108.603,3631411321.039,4999569653.867,3547101921.211,3043123151.997,3578212302.916,4273228569.09,5035196642.53,6007182798.881,5193418645.782]}],"export":[{"name":"UAE","share":[0.03706386957475182,0.050603993961883066,0.12530518434436244,0.10437139449492294,0.0683839122247181,0.06752883917105049,0.10013320302516174,0.04031435801182303,0.03751731759849664,0.05225729386352994,0.07286641521986695,0.13680412720892185],"value":[993763734.0,1106141258.653,2878682219.311,2758957458.284,2003913449.902,2059984234.811,2936197861.075,1759191673.604,1955242316.0,2223717332.195,3267830749.196,7030540628.601]},{"name":"Italy","share":[0.09154276284735484,0.0735235792061695,0.06504777754265303,0.0835849630332326,0.0699624938703068,0.05518842328600552,0.05027870002498843,0.0660999089943025,0.06489925531937231,0.07649049322639785,0.0753729516248136,0.07865330793649265],"value":[2454462496.0,1607135288.67,1494366586.646,2209488129.165,2050172005.291,1683536742.358,1474318278.163,2884391945.288,3382271932.0,3254918557.013,3380241064.886,4042094988.676]},{"name":"T\u00fcrkiye","share":[0.05410364508272105,0.05788689003842962,0.06244391119835953,0.07312074023587639,0.06843988835926798,0.05732281571146144,0.05824454446291916,0.06853419456859511,0.0759836180660857,0.08563050206531626,0.07408175811879619,0.06414880580573065],"value":[1450637534.0,1265336436.781,1434547004.671,1932876461.077,2005553767.416,1748646920.488,1707900094.121,2990616504.593,3959941565.0,3643855575.539,3322335075.832,3296689907.642]},{"name":"Saudi Arabia","share":[0.07390870192445877,0.09224941440967012,0.07810352834746459,0.059496064590144705,0.048914587668605645,0.05528366776676377,0.0640994807412473,0.05135835431161572,0.04827565018732241,0.06278738594522053,0.07499259991433682,0.05801000911776276],"value":[1981654599.0,2016459085.067,1794301165.556,1572721260.781,1433386844.02,1686442199.215,1879583919.843,2241116905.508,2515920650.0,2671806900.951,3363183480.658,2981209224.376]},{"name":"USA","share":[0.042112212806765734,0.05607424004857812,0.04986234327147257,0.052043009099002356,0.0587823122657201,0.07231401204165187,0.05574482842655835,0.05825858129577355,0.04414626607206972,0.04711127728358873,0.05038433627257588,0.052659260363985244],"value":[1129120902.0,1225714130.629,1145506003.92,1375706905.135,1722549388.203,2205957137.578,1634601121.777,2542221089.108,2300714791.0,2004737637.409,2259579846.937,2706227341.341]}]},"concentration":[{"year":2014,"flow":"export","partner_countries":170,"hhi":384.0,"top1_share":0.0946248694,"top1_partner":"Italy","top5_share":0.344626064},{"year":2015,"flow":"export","partner_countries":166,"hhi":370.0,"top1_share":0.0946666317,"top1_partner":"Saudi Arabia","top5_share":0.3389939885},{"year":2016,"flow":"export","partner_countries":171,"hhi":450.0,"top1_share":0.1268104902,"top1_partner":"United Arab Emirates","top5_share":0.3853368922},{"year":2017,"flow":"export","partner_countries":171,"hhi":410.0,"top1_share":0.1056914255,"top1_partner":"United Arab Emirates","top5_share":0.3773288122},{"year":2018,"flow":"export","partner_countries":173,"hhi":353.0,"top1_share":0.0713291765,"top1_partner":"Italy","top5_share":0.3206264677},{"year":2019,"flow":"export","partner_countries":173,"hhi":350.0,"top1_share":0.0738070122,"top1_partner":"USA","top5_share":0.3139892687},{"year":2020,"flow":"export","partner_countries":178,"hhi":357.0,"top1_share":0.1013566566,"top1_partner":"United Arab Emirates","top5_share":0.3325144644},{"year":2021,"flow":"export","partner_countries":176,"hhi":329.0,"top1_share":0.0702370453,"top1_partner":"T\u00fcrkiye","top5_share":0.2983918887},{"year":2022,"flow":"export","partner_countries":174,"hhi":356.0,"top1_share":0.0783967514,"top1_partner":"T\u00fcrkiye","top5_share":0.3169413077},{"year":2023,"flow":"export","partner_countries":179,"hhi":357.0,"top1_share":0.0880554793,"top1_partner":"T\u00fcrkiye","top5_share":0.333460178},{"year":2024,"flow":"export","partner_countries":175,"hhi":376.0,"top1_share":0.0770868879,"top1_partner":"Italy","top5_share":0.3556045091},{"year":2025,"flow":"export","partner_countries":177,"hhi":467.0,"top1_share":0.1396210871,"top1_partner":"United Arab Emirates","top5_share":0.3983117478},{"year":2014,"flow":"import","partner_countries":171,"hhi":441.0,"top1_share":0.1136883297,"top1_partner":"China","top5_share":0.3608871456},{"year":2015,"flow":"import","partner_countries":170,"hhi":455.0,"top1_share":0.1322664672,"top1_partner":"China","top5_share":0.3600024865},{"year":2016,"flow":"import","partner_countries":169,"hhi":454.0,"top1_share":0.1280587877,"top1_partner":"China","top5_share":0.3629371333},{"year":2017,"flow":"import","partner_countries":169,"hhi":455.0,"top1_share":0.1221678649,"top1_partner":"China","top5_share":0.3776984649},{"year":2018,"flow":"import","partner_countries":178,"hhi":488.0,"top1_share":0.1425563357,"top1_partner":"China","top5_share":0.3928774557},{"year":2019,"flow":"import","partner_countries":176,"hhi":513.0,"top1_share":0.1540381602,"top1_partner":"China","top5_share":0.3900895916},{"year":2020,"flow":"import","partner_countries":171,"hhi":543.0,"top1_share":0.1683645048,"top1_partner":"China","top5_share":0.3955434518},{"year":2021,"flow":"import","partner_countries":178,"hhi":552.0,"top1_share":0.1661658279,"top1_partner":"China","top5_share":0.4109003229},{"year":2022,"flow":"import","partner_countries":176,"hhi":530.0,"top1_share":0.1551417528,"top1_partner":"China","top5_share":0.3991855879},{"year":2023,"flow":"import","partner_countries":181,"hhi":518.0,"top1_share":0.1583493426,"top1_partner":"China","top5_share":0.3966904427},{"year":2024,"flow":"import","partner_countries":182,"hhi":587.0,"top1_share":0.1656070333,"top1_partner":"China","top5_share":0.4420704764},{"year":2025,"flow":"import","partner_countries":179,"hhi":747.0,"top1_share":0.1878445353,"top1_partner":"China","top5_share":0.5060334444}],"mix":{"import":[{"hs2":"27","name":"Mineral fuels & oils","full":"Mineral fuels, mineral oils and products of their distillation; bituminous substances; mineral waxes","share":[0.13876079611946363,0.15946886202894017,0.15324222848270774,0.17518659780876836,0.17466999386676924,0.14230151011785835,0.1002797664861526,0.12301692031305607,0.15738810261195346,0.1498399683758164,0.17945815996764025,0.214409070932681],"value":[9898882212.0,11800380849.631,10829651756.452,11696772672.227,14307134948.163,10888188212.781,7063384746.43,10973872567.043,15138995649.692,12619166938.27,16994323713.367,21656121195.66]},{"hs2":"84","name":"Machinery","full":"Machinery and mechanical appliances, boilers, nuclear reactors; parts thereof","share":[0.08084193864258876,0.08136564307744308,0.08954427768617736,0.08616070699475088,0.07922826826367327,0.08416438892674372,0.0907237634140828,0.0815446566134335,0.07494645542943289,0.0842888026334996,0.07584568874056195,0.08047958882966587],"value":[5767081559.0,6020896895.939,6328107818.099,5752735743.496,6489549238.905,6439831219.564,6390290574.981,7274289324.768,7209020528.721,7098603149.67,7182432868.769,8128740644.65]},{"hs2":"85","name":"Electrical equipment","full":"Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recorders and reproducers, parts and accessories of such articles","share":[0.06569622166672338,0.06909830965131589,0.0707220186633711,0.07278525075917215,0.08341835227045476,0.08875402374373441,0.08523237272322833,0.07578352277761509,0.061293092282170815,0.06222785346274473,0.0658891493469144,0.06578481925859457],"value":[4686620272.0,5113138449.582,4997935890.263,4859689854.531,6832756998.876,6791006745.909,6003494647.93,6760360440.879,5895717922.871,5240682306.386,6239568785.291,6644513744.225]},{"hs2":"10","name":"Cereals","full":"Cereals","share":[0.07082134572082609,0.05868426781144478,0.05867357904277306,0.06638628775079998,0.05772480934491602,0.06849959065099516,0.07496345612638976,0.07186551686491936,0.07727681328035498,0.07632517351924985,0.0720374800786209,0.06703938313883363],"value":[5052235062.0,4342519920.479,4146470817.015,4432447036.969,4728211290.742,5241240482.19,5280185137.008,6410850003.669,7433175193.412,6427925183.594,6821803233.534,6771229406.58]},{"hs2":"87","name":"Vehicles & parts","full":"Vehicles; other than railway or tramway rolling stock, and parts and accessories thereof","share":[0.07349037960312765,0.0843011337251849,0.07331633317416396,0.047104905886711124,0.05825364106412108,0.06026958090201771,0.06955094079818322,0.0628458748424161,0.038179320325924394,0.042893643889808465,0.05152055805500277,0.05813887295312945],"value":[5242637919.0,6238117406.471,5181276494.069,3145077207.932,4771527641.788,4611521970.66,4898944937.228,5606241971.673,3672428568.171,3612401008.245,4878892337.01,5872244459.505]},{"hs2":"72","name":"Iron & steel","full":"Iron and steel","share":[0.06082830751102413,0.049989518980297645,0.05004683182385798,0.048647760947750224,0.05431739472248193,0.04542610521607148,0.041153702488901676,0.04603503447193975,0.053364891527412917,0.050876876300436344,0.05468839568023434,0.04243796815495616],"value":[4339354256.0,3699125678.531,3536817269.838,3248089796.457,4449111602.534,3475774662.943,2898734656.102,4106610705.494,5133112651.289,4284729917.472,5178880134.078,4286394123.455]},{"hs2":"39","name":"Plastics","full":"Plastics and articles thereof","share":[0.04627075561282954,0.045373675369210595,0.044484948444909904,0.04805639970565849,0.04759715386664189,0.04791800957520893,0.047581458302602984,0.05742577867001356,0.061342315034915496,0.050949513835209355,0.04786144106242126,0.042299529195927665],"value":[3300851339.0,3357562367.298,3143758119.626,3208606079.652,3898659915.44,3666442517.754,3351485135.677,5122735763.375,5900452607.56,4290847278.462,4532381380.427,4272411268.803]},{"hs2":"30","name":"Pharmaceuticals","full":"Pharmaceutical products","share":[0.026481527651360075,0.030572691045369534,0.03142345350956637,0.03287778986728391,0.028183567013695825,0.03328011838534244,0.04003759086865708,0.04524363688935372,0.03996452928692851,0.043177569230738524,0.03717994824269159,0.029067672137515013],"value":[1889132452.0,2262318758.304,2220700272.132,2195168117.042,2308502380.169,2546425490.658,2820119337.479,4036013130.794,3844145935.913,3636312527.408,3520865678.086,2935944024.884]},{"hs2":"73","name":"Iron & steel articles","full":"Iron or steel articles","share":[0.03621250966431295,0.03548806168591843,0.039112303179878995,0.04116022222152939,0.04019639894358416,0.0334853018465617,0.029790823958162693,0.01696826621027554,0.019923486645392865,0.023023253195369037,0.020603664372024905,0.02369354721163588],"value":[2583318760.0,2626046478.171,2764072455.907,2748165490.314,3292467649.336,2562125086.13,2098369979.339,1513674627.859,1916419174.294,1938963807.078,1951125220.959,2393137229.401]},{"hs2":"29","name":"Organic chemicals","full":"Organic chemicals","share":[0.021808902330613007,0.019957069167629335,0.0217459255189196,0.021417859188698728,0.021272669002616717,0.025415306450102034,0.02702506885571267,0.028034878585622095,0.03253073145774206,0.027932355465723657,0.027819478455430285,0.02143022505410315],"value":[1555797901.0,1476783704.506,1536787886.886,1430017097.138,1742434057.45,1944650059.476,1903559070.942,2500885116.033,3129096760.473,2352396763.172,2634448177.19,2164533193.503]}],"export":[{"hs2":"27","name":"Mineral fuels & oils","full":"Mineral fuels, mineral oils and products of their distillation; bituminous substances; mineral waxes","share":[0.23386108362113142,0.17982049041743148,0.13777189674010273,0.19355486289192336,0.24544287792562666,0.26466507442429044,0.20622960885947023,0.31698585671782903,0.3595321192898335,0.18153166589551292,0.12454042656002856,0.09785412323403624],"value":[6270329201.0,3930655429.13,3165084601.58,5116436693.665,7192426818.775,8073674707.159,6047254238.65,13832264912.285,18737278105.0,7724761118.482,5585248487.974,5028849663.449]},{"hs2":"71","name":"Gold, gems & precious metals","full":"Natural, cultured pearls; precious, semi-precious stones; precious metals, metals clad with precious metal, and articles thereof; imitation jewellery; coin","share":[0.024679798440849512,0.028819810102904332,0.11632107759558168,0.08007721133999969,0.04965711550756335,0.06675216601323566,0.1026240491687358,0.026595563217360632,0.03133453629807874,0.04369481719121316,0.07273376953416456,0.14840595123411343],"value":[661719592.0,629965710.718,2672287021.144,2116764085.928,1455145785.195,2036291624.656,3009236742.266,1160546655.687,1633022168.0,1859356180.382,3261882005.194,7626773336.189]},{"hs2":"85","name":"Electrical equipment","full":"Electrical machinery and equipment and parts thereof; sound recorders and reproducers; television image and sound recorders and reproducers, parts and accessories of such articles","share":[0.0730499942663443,0.07971620344510846,0.06869556125152637,0.06654862992212984,0.05303833270156742,0.055593485972266266,0.0546734635197846,0.05493387474875444,0.05027122693860606,0.061764861820009606,0.06697806034321561,0.06731296005927806],"value":[1958630761.0,1742498461.292,1578168467.291,1759149044.149,1554228542.991,1695893281.55,1603185574.759,2397141361.608,2619921585.0,2628295183.223,3003756455.572,3459299877.74]},{"hs2":"39","name":"Plastics","full":"Plastics and articles thereof","share":[0.06149740474755932,0.06301149733168197,0.05178076386430471,0.05847656042208317,0.06108192451001532,0.06576565566438888,0.06013166244525824,0.06381168717386565,0.05339121603806779,0.053933037590670536,0.05781262616571959,0.05036564404539355],"value":[1648880467.0,1377354068.546,1189578587.817,1545771648.372,1789936932.378,2006197878.176,1763235902.983,2784541148.391,2782522088.0,2295025662.475,2592715408.135,2588355439.058]},{"hs2":"08","name":"Fruit & nuts","full":"Fruit and nuts, edible; peel of citrus fruit or melons","share":[0.039262822472618,0.051112354962961064,0.05265804604449938,0.048495129293948606,0.047502333483041066,0.04575572990838788,0.050851969787048215,0.03926038732279811,0.036800169349849345,0.05208834789204507,0.058166018872556416,0.05841276645948333],"value":[1052722490.0,1117253406.797,1209732714.932,1281922113.846,1392002327.325,1395790056.82,1491128221.302,1713199710.646,1917867613.0,2216528133.191,2608563965.395,3001907443.883]},{"hs2":"31","name":"Fertilisers","full":"Fertilizers","share":[0.027680724404766786,0.019242154378142848,0.036780824772564794,0.04158582316622291,0.047054089699796714,0.044621043340675896,0.049006775680059476,0.05100606955725757,0.06779943386530865,0.060811691801523717,0.048731073232035016,0.043727986576132784],"value":[742181007.0,420609900.457,844979454.269,1099281249.796,1378867048.619,1361176157.49,1437021742.866,2225744307.824,3533416848.0,2587734707.662,2185436172.048,2247237656.514]},{"hs2":"07","name":"Vegetables","full":"Vegetables and certain roots and tubers; edible","share":[0.04622857273390065,0.05160870614674091,0.04207546379968902,0.040487573247844806,0.030961104024501508,0.03574728686755833,0.03636692871898369,0.024878499649474486,0.029180173411949818,0.0409109732717669,0.04592735460881056,0.04265117359391589],"value":[1239489551.0,1128103035.061,966615149.59,1070250069.193,907280247.065,1090479982.899,1066384526.736,1085619406.919,1520745978.0,1740894593.183,2059698163.647,2191898847.844]},{"hs2":"62","name":"Apparel (woven)","full":"Apparel and clothing accessories; not knitted or crocheted","share":[0.029140132767337876,0.0396094524183654,0.03874002046546768,0.037442857609064496,0.036201852932020814,0.03579120031104985,0.03362060010355739,0.030449085433202024,0.03167054697472386,0.03774694523066528,0.04319242254638841,0.04524555874476021],"value":[781310950.0,865814061.744,889988779.58,989765938.837,1060854485.24,1091819573.545,985854153.565,1328702234.257,1650533609.0,1606254938.613,1937045017.289,2325227648.527]},{"hs2":"72","name":"Iron & steel","full":"Iron and steel","share":[0.023194309223092395,0.013244503777667139,0.02230400219800475,0.032984863023923124,0.035780996151091274,0.022549555538658124,0.024739292407773752,0.04084123530773012,0.027028619351598858,0.0549763823005512,0.04924922686690001,0.03539902596707398],"value":[621890364.0,289508612.5,512398069.424,871923138.43,1048521751.76,687879867.059,725428282.105,1782182940.182,1408616172.0,2339423363.605,2208673741.451,1819201623.167]},{"hs2":"25","name":"Salt, stone & cement","full":"Salt; sulphur; earths, stone; plastering materials, lime and cement","share":[0.014187794860066195,0.017702332051075756,0.01540759882185427,0.014750857814589045,0.015109184604231525,0.0159682748444474,0.01792539799476512,0.018922103958672463,0.02090626600884547,0.03244568295380887,0.03322835390901139,0.030575379579006665],"value":[380405936.0,386951272.479,353964450.895,389924743.083,442757620.33,487116243.082,525625004.105,825701049.77,1089545271.0,1380669035.938,1490187712.973,1571308210.876]}]},"energy":{"2709":{"name":"Crude oil","exports":[3050496068.0,1983618420.51,1808107143.787,2106108669.35,2133332526.445,1916595894.271,1191878164.579,3213265951.604,3202780000.0,2638393000.0,1408882000.0,997037400.0],"imports":[3044000238.0,1747290577.946,1384757666.46,1750711555.901,3544088106.03,2877364104.008,3567880080.274,3738263416.375,4627680000.0,1736648110.0,825180000.0,1504210000.0]},"2710":{"name":"Refined fuels","exports":[2437226562.0,1477723970.412,920417766.26,2452206419.242,4171011110.076,4605679047.113,4212686929.077,6344755355.638,5121044646.0,1968454713.859,3541642155.742,3380560167.234],"imports":[5548355904.0,7096224188.551,5763691969.815,5750207954.977,7058047611.097,5892958737.31,1772279386.852,4141496348.913,5804520535.815,6534846150.0,9248473831.424,9378067249.77]},"2711":{"name":"Natural gas & LNG","exports":[379757629.0,144479568.771,245470496.242,320410739.439,671181381.667,1341399797.18,497716149.96,4051854308.603,10116701300.0,2738224000.0,331522000.0,399211000.0],"imports":[1022300917.0,2454629381.734,3197629068.861,3512964154.882,2407870533.926,1053327419.656,1228202397.101,2322036259.9,3219820000.0,3380808000.0,6148700000.0,10111931000.0]}},"wheat":[{"name":"Russia","share":[0.37198486937998576,0.4283687468107698,0.4995904379284956,0.6060702088602414,0.7366745316600208,0.4815436559654997,0.606621729373128,0.5206765158253528,0.5074746197054276,0.6733314853661022,0.6881631268576838,0.5927500441177055],"value":[1140586421.0,1080753688.702,1118317466.307,1597904849.87,2053608033.121,1432844017.109,1950913245.379,1820468177.01,2167436053.848,2560262904.394,3057344485.33,2205456448.054]},{"name":"Ukraine","share":[0.23775597160525264,0.17328004218982884,0.2333634124827215,0.19739140300465263,0.12128607662887404,0.2523808574092088,0.23457178100227444,0.25313122640854047,0.08536146390686339,0.11860237762239027,0.133955441818457,0.25246571699547526],"value":[729011460.0,437177189.441,522376651.68,520422676.404,338105975.66,750964937.637,754389716.673,885035772.266,364580822.955,450971437.396,595132048.405,939354031.241]},{"name":"Romania","share":[0.16739537291572287,0.10562516974856985,0.11498531685170157,0.08484230733807702,0.09447615573843808,0.10928284747377377,0.04899594567221422,0.15208870649002335,0.16512551038429318,0.12302124359954919,0.0626241316818508,0.05217988605387712],"value":[513270579.0,266487209.152,257391011.6,223686847.477,263368671.0,325173579.25,157572396.031,531755594.563,705254944.227,467773649.808,278224066.611,194146701.967]},{"name":"France","share":[0.10821898273819766,0.17103297513305077,0.05009982603303595,0.016716430795920077,4.987541492901067e-06,0.057696476253198924,0.06442120321913761,0.024496694539533913,0.13624052076563056,0.03251593330070192,0.039535179212888745,0.04092001780154346],"value":[331822911.0,431507947.629,112146883.243,44072890.32,13903.637,171677167.342,207180476.0,85649057.516,581886473.207,123637969.768,175645362.888,152251894.387]},{"name":"Other","share":[0.11464480336084105,0.12169306611778082,0.1019610067040454,0.09497965000110878,0.047558248431174295,0.09909616289831888,0.04538934073324574,0.04960685673654954,0.1057978852377852,0.052528960111256406,0.07572212042911994,0.061684335031398675],"value":[351525873.0,307025736.764,228236503.389,250413963.856,132576866.47499998,294862869.375,145973448.93500003,173443013.66699997,451865259.82,199735124.38099998,336415303.692,229510087.412]}],"mirror_year":{"export":{"ratio":[0.8261475548215121,0.8075458395015578,0.8551548608054075,0.8417341575808428,0.8255221120722962,0.8315759828275318,0.8832106896459915,0.9713390554714617,0.8902784143675974,0.8460754581324765,0.790348991566412,0.766937201280002],"egypt":[24116854561.0,19812803180.188995,21656270936.715996,24743061088.27199,26558464434.706005,27789366401.374004,25862263032.066998,39093381179.15302,45984026980.297,36415701446.63201,35591511540.028984,33344572562.527004],"partner":[29191945700.56,24534586411.11701,25324385008.253998,29395339211.82899,32171717809.032005,33417711640.594,29282099203.795994,40246895210.219,51651288224.214005,43040725382.83001,45032652562.116005,43477578746.83301],"partners":[147,145,150,154,154,152,153,154,150,152,135,110]},"import":{"ratio":[0.9425365665695477,1.064779580063521,1.0691298039518793,0.9759961610471898,1.0711189012002205,1.0181481160741772,0.9748960605150531,0.9501142151061106,1.0883723080758858,1.060734551168073,1.1483840707607584,1.0996978127731],"egypt":[70263071239.0,73135055182.821,69938086755.76099,65431501748.05702,79362361119.873,74878115664.35202,68410724933.51803,85969406233.34698,89828636445.89703,77836994947.93703,83966835923.52501,87198364078.21997],"partner":[74546785484.121,68685628981.031006,65415898516.01298,67040736797.42003,74092951801.098,73543440764.85703,70172326778.48299,90483233348.68298,82534841964.79005,73380276773.50899,73117381250.24701,79293023106.34999],"partners":[128,135,137,135,138,136,134,137,132,136,129,102]}},"outliers":[{"year":2023,"partner_name":"Saudi Arabia","egypt_flow":"import","egypt_reported_usd":5520947526.062,"partner_reported_usd":2627354814.316,"gap_usd":2893592711.7460003,"egypt_to_partner_ratio":2.1013330579},{"year":2023,"partner_name":"Saudi Arabia","egypt_flow":"export","egypt_reported_usd":2671806900.951,"partner_reported_usd":5268015191.5,"gap_usd":-2596208290.549,"egypt_to_partner_ratio":0.5071752461},{"year":2023,"partner_name":"Israel","egypt_flow":"import","egypt_reported_usd":2499438087.772,"partner_reported_usd":258500000.0,"gap_usd":2240938087.772,"egypt_to_partner_ratio":9.6690061423},{"year":2023,"partner_name":"UAE","egypt_flow":"import","egypt_reported_usd":2306716766.036,"partner_reported_usd":4522433743.122,"gap_usd":-2215716977.086,"egypt_to_partner_ratio":0.5100609311},{"year":2023,"partner_name":"Kuwait","egypt_flow":"import","egypt_reported_usd":2253017649.735,"partner_reported_usd":120060859.42,"gap_usd":2132956790.315,"egypt_to_partner_ratio":18.7656298699},{"year":2023,"partner_name":"China","egypt_flow":"import","egypt_reported_usd":13230940112.038,"partner_reported_usd":14934546799.0,"gap_usd":-1703606686.962,"egypt_to_partner_ratio":0.8859284644},{"year":2023,"partner_name":"Germany","egypt_flow":"import","egypt_reported_usd":4165523031.832,"partner_reported_usd":5833663762.851,"gap_usd":-1668140731.019,"egypt_to_partner_ratio":0.7140492152},{"year":2023,"partner_name":"Ukraine","egypt_flow":"import","egypt_reported_usd":2273560370.341,"partner_reported_usd":1085021373.95,"gap_usd":1188538996.391,"egypt_to_partner_ratio":2.0954060675},{"year":2023,"partner_name":"Brazil","egypt_flow":"import","egypt_reported_usd":3092178259.159,"partner_reported_usd":2314700830.0,"gap_usd":777477429.1589999,"egypt_to_partner_ratio":1.3358867889},{"year":2023,"partner_name":"India","egypt_flow":"import","egypt_reported_usd":3184057253.825,"partner_reported_usd":3956061431.32,"gap_usd":-772004177.4950004,"egypt_to_partner_ratio":0.8048553616},{"year":2023,"partner_name":"USA","egypt_flow":"import","egypt_reported_usd":5193014916.518,"partner_reported_usd":4486971384.0,"gap_usd":706043532.5179996,"egypt_to_partner_ratio":1.157354142},{"year":2023,"partner_name":"Germany","egypt_flow":"export","egypt_reported_usd":820630110.704,"partner_reported_usd":1516018299.059,"gap_usd":-695388188.355,"egypt_to_partner_ratio":0.541306204}],"quality":[{"year":2014,"flow":"export","hs_version":"H4","world_total_usd":26812195958.0,"partner_sum_ratio":1.0000000001,"hs2_sum_ratio":1.0000000001,"hs2_chapters":95,"non_country_share":0.0325718447},{"year":2015,"flow":"export","hs_version":"H4","world_total_usd":21858773824.971,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":95,"non_country_share":0.0255339951},{"year":2016,"flow":"export","hs_version":"H4","world_total_usd":22973368854.395,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":95,"non_country_share":0.0118705154},{"year":2017,"flow":"export","hs_version":"H4","world_total_usd":26434038479.942,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":95,"non_country_share":0.0124894802},{"year":2018,"flow":"export","hs_version":"H4","world_total_usd":29303872573.375,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":94,"non_country_share":0.0191602189},{"year":2019,"flow":"export","hs_version":"H4","world_total_usd":30505251683.552,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":93,"non_country_share":0.0202284324},{"year":2020,"flow":"export","hs_version":"H4","world_total_usd":29322919594.784,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0120707764},{"year":2021,"flow":"export","hs_version":"H4","world_total_usd":43636851989.261,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0242443388},{"year":2022,"flow":"export","hs_version":"H6","world_total_usd":52115727913.297,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0307810373},{"year":2023,"flow":"export","hs_version":"H6","world_total_usd":42553243151.133,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":95,"non_country_share":0.0275391972},{"year":2024,"flow":"export","hs_version":"H6","world_total_usd":44846871351.303,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0222338236},{"year":2025,"flow":"export","hs_version":"H6","world_total_usd":51391290394.801,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0201757479},{"year":2014,"flow":"import","hs_version":"H4","world_total_usd":71337744441.0,"partner_sum_ratio":0.9999999999,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0064881265},{"year":2015,"flow":"import","hs_version":"H4","world_total_usd":73998025065.793,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0062738774},{"year":2016,"flow":"import","hs_version":"H4","world_total_usd":70670153153.47,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0060815986},{"year":2017,"flow":"import","hs_version":"H4","world_total_usd":66767508579.595,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0054456718},{"year":2018,"flow":"import","hs_version":"H4","world_total_usd":81909517664.928,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0080979896},{"year":2019,"flow":"import","hs_version":"H4","world_total_usd":76514916839.344,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0080181115},{"year":2020,"flow":"import","hs_version":"H4","world_total_usd":70436788934.938,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0146203466},{"year":2021,"flow":"import","hs_version":"H4","world_total_usd":89206204635.236,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.0269088028},{"year":2022,"flow":"import","hs_version":"H6","world_total_usd":96188945660.129,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.01063291},{"year":2023,"flow":"import","hs_version":"H6","world_total_usd":84217629482.006,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":96,"non_country_share":0.007863503},{"year":2024,"flow":"import","hs_version":"H6","world_total_usd":94697971473.86,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":97,"non_country_share":0.0085488694},{"year":2025,"flow":"import","hs_version":"H6","world_total_usd":101003754652.057,"partner_sum_ratio":1.0,"hs2_sum_ratio":1.0,"hs2_chapters":97,"non_country_share":0.0113648661}]};
+  const Y = D.years;
+  const $ = (s, r = document) => r.querySelector(s);
+  const NS = "http://www.w3.org/2000/svg";
+  const svg = (tag, attrs = {}, parent) => {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const h = (html) => { const t = document.createElement("template"); t.innerHTML = html.trim(); return t.content.firstElementChild; };
+  const minus = "−";
+  const bn = (v, d = 1) => v == null ? "–" : (v < 0 ? minus : "") + "$" + Math.abs(v / 1e9).toFixed(d) + "bn";
+  const pct = (v, d = 0) => v == null ? "–" : (v * 100).toFixed(d) + "%";
+  const pp = (v) => (v >= 0 ? "+" : minus) + Math.abs(v * 100).toFixed(1) + " pp";
+  const signedPct = (v) => (v >= 0 ? "+" : minus) + Math.abs(v * 100).toFixed(1) + "%";
+  const x2 = (v) => v == null ? "–" : v.toFixed(2) + "×";
+  const cssVar = (n) => `var(--${n})`;
+  const SERIES = ["s1", "s2", "s3", "s4", "s5"];
+  const FLOW_COLOR = { export: "s1", import: "s2" };
+  const last = (a) => a[a.length - 1];
+  const yi = (y) => Y.indexOf(y);
+
+  /* ---------------- tooltip ---------------- */
+  const tip = $("#tip");
+  function showTip(evt, html) {
+    tip.innerHTML = html;
+    tip.classList.add("on");
+    const pad = 14, r = tip.getBoundingClientRect();
+    let x = evt.clientX + pad, y = evt.clientY + pad;
+    if (x + r.width > innerWidth - 8) x = evt.clientX - r.width - pad;
+    if (y + r.height > innerHeight - 8) y = evt.clientY - r.height - pad;
+    tip.style.left = Math.max(8, x) + "px";
+    tip.style.top = Math.max(8, y) + "px";
+  }
+  const hideTip = () => tip.classList.remove("on");
+  const tipRow = (color, label, value) => `<div class="row"><i style="background:${cssVar(color)}"></i><span>${label}</span><span>${value}</span></div>`;
+
+  /* ---------------- scales ---------------- */
+  const lin = (d0, d1, r0, r1) => (v) => r0 + (v - d0) * (r1 - r0) / (d1 - d0);
+  function ticks(min, max, n = 5) {
+    const span = max - min, step0 = span / n, mag = 10 ** Math.floor(Math.log10(step0));
+    const step = [1, 2, 2.5, 5, 10].map((m) => m * mag).find((s) => span / s <= n) || mag * 10;
+    const out = [];
+    for (let v = Math.ceil(min / step) * step; v <= max + step * 1e-9; v += step) out.push(+v.toFixed(10));
+    return out;
+  }
+
+  const legend = (host, items) => {
+    host.innerHTML = items.map((it) =>
+      `<span><i class="${it.kind || ""}" style="background:${it.kind === "hollow" ? "transparent" : it.kind === "band" ? "" : cssVar(it.color)}"></i>${it.label}</span>`).join("");
+  };
+
+  /* ---------------- charts ---------------- */
+  const charts = [];
+  function mount(host, draw) {
+    const c = { host, draw, w: 0 };
+    charts.push(c);
+    c.render = () => { c.w = host.clientWidth; if (c.w > 0) draw(host, c.w); };
+    c.render();
+    return c;
+  }
+  const ro = new ResizeObserver(() => charts.forEach((c) => { if (Math.abs(c.host.clientWidth - c.w) > 2) c.render(); }));
+
+  // Line chart with crosshair tooltip.
+  function lineChart(host, w, o) {
+    host.innerHTML = "";
+    const narrow = w < 520;
+    const H = o.height || (narrow ? 250 : 320);
+    const m = { t: 14, r: o.endLabels && !narrow ? (o.endWidth || 108) : 14, b: 28, l: o.left || 52 };
+    const s = svg("svg", { viewBox: `0 0 ${w} ${H}`, role: "img", "aria-label": o.aria || "" }, host);
+    const x = lin(Y[0], last(Y), m.l, w - m.r);
+    const y = lin(o.yMin, o.yMax, H - m.b, m.t);
+    const g = svg("g", {}, s);
+    if (o.band) {
+      svg("rect", { x: m.l, width: w - m.l - m.r, y: y(o.band[1]), height: y(o.band[0]) - y(o.band[1]), style: "fill:var(--band)" }, g);
+    }
+    for (const t of o.ticks || ticks(o.yMin, o.yMax, narrow ? 4 : 5)) {
+      svg("line", { x1: m.l, x2: w - m.r, y1: y(t), y2: y(t), style: `stroke:var(--rule);stroke-width:1${t === o.ref ? ";stroke:var(--ink-3)" : ""}` }, g);
+      const tx = svg("text", { x: m.l - 8, y: y(t) + 4, "text-anchor": "end", style: "fill:var(--ink-3);font-size:11.5px" }, g);
+      tx.textContent = o.yFmt(t);
+    }
+    Y.forEach((yr, i) => {
+      if (narrow && i % 2) return;
+      const tx = svg("text", { x: x(yr), y: H - 8, "text-anchor": "middle", style: "fill:var(--ink-3);font-size:11.5px" }, g);
+      tx.textContent = narrow ? "’" + String(yr).slice(2) : yr;
+    });
+    (o.events || []).forEach((ev) => {
+      const ex = x(ev.x);
+      svg("line", { x1: ex, x2: ex, y1: m.t, y2: H - m.b, style: "stroke:var(--ink-3);stroke-dasharray:3 4;stroke-width:1" }, g);
+      const t = svg("text", { x: ex + 6, y: m.t + 10, style: "fill:var(--ink-2);font-size:11px;font-weight:500" }, g);
+      t.textContent = ev.label;
+    });
+    if (o.area) {
+      const [a, b] = o.area.map((k) => o.series[k].values);
+      const top = Y.map((yr, i) => `${x(yr)},${y(a[i])}`).join(" ");
+      const bot = Y.map((yr, i) => `${x(yr)},${y(b[i])}`).reverse().join(" ");
+      svg("polygon", { points: top + " " + bot, style: `fill:var(--${o.series[o.area[0]].color});opacity:.09` }, g);
+      if (o.areaLabel) {
+        const i = yi(o.areaLabel.year);
+        const t = svg("text", { x: x(o.areaLabel.year), y: (y(a[i]) + y(b[i])) / 2 + 4, "text-anchor": "middle", style: "fill:var(--ink-2);font-size:12px;font-weight:600" }, g);
+        t.textContent = o.areaLabel.text(i);
+      }
+    }
+    const pts = [];
+    o.series.forEach((se) => {
+      const d = se.values.map((v, i) => v == null ? null : [x(Y[i]), y(v)]);
+      let path = "", pen = false;
+      d.forEach((p) => { if (!p) { pen = false; return; } path += (pen ? "L" : "M") + p[0].toFixed(1) + "," + p[1].toFixed(1); pen = true; });
+      svg("path", { d: path, style: `fill:none;stroke:var(--${se.color});stroke-width:${se.width || 2.25};stroke-linejoin:round;stroke-linecap:round${se.dash ? ";stroke-dasharray:" + se.dash : ""}` }, g);
+      const lastI = se.values.map((v) => v != null).lastIndexOf(true);
+      if (lastI >= 0) {
+        svg("circle", { cx: d[lastI][0], cy: d[lastI][1], r: 4, style: `fill:var(--${se.color});stroke:var(--panel);stroke-width:2` }, g);
+        if (o.endLabels && !narrow) pts.push({ y: d[lastI][1], x: d[lastI][0], se, v: se.values[lastI] });
+      }
+    });
+    // End labels with simple collision avoidance.
+    pts.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < pts.length; i++) if (pts[i].y - pts[i - 1].y < 15) pts[i].y = pts[i - 1].y + 15;
+    pts.forEach((p) => {
+      const t = svg("text", { x: p.x + 9, y: p.y + 4, style: "fill:var(--ink);font-size:12px;font-weight:500" }, g);
+      t.textContent = o.endLabel(p.se, p.v);
+    });
+    // Hover layer
+    const hover = svg("g", { style: "pointer-events:none;opacity:0" }, s);
+    const cross = svg("line", { y1: m.t, y2: H - m.b, style: "stroke:var(--ink-3);stroke-width:1" }, hover);
+    const dots = o.series.map((se) => svg("circle", { r: 5, style: `fill:var(--${se.color});stroke:var(--panel);stroke-width:2` }, hover));
+    const hit = svg("rect", { x: m.l - 10, y: 0, width: w - m.l - m.r + 20, height: H, style: "fill:transparent;cursor:crosshair" }, s);
+    const move = (evt) => {
+      const r = s.getBoundingClientRect();
+      const px = (evt.clientX - r.left) * (w / r.width);
+      let i = Math.round((px - m.l) / ((w - m.l - m.r) / (Y.length - 1)));
+      i = Math.max(0, Math.min(Y.length - 1, i));
+      cross.setAttribute("x1", x(Y[i])); cross.setAttribute("x2", x(Y[i]));
+      o.series.forEach((se, k) => {
+        const v = se.values[i];
+        dots[k].style.display = v == null ? "none" : "";
+        if (v != null) { dots[k].setAttribute("cx", x(Y[i])); dots[k].setAttribute("cy", y(v)); }
+      });
+      hover.style.opacity = 1;
+      showTip(evt, o.tooltip(i));
+    };
+    hit.addEventListener("pointermove", move);
+    hit.addEventListener("pointerdown", move);
+    hit.addEventListener("pointerleave", () => { hover.style.opacity = 0; hideTip(); });
+  }
+
+  // Vertical bars: stacked (multiple series) or single signed series.
+  function barChart(host, w, o) {
+    host.innerHTML = "";
+    const narrow = w < 520;
+    const H = o.height || (narrow ? 250 : 320);
+    const m = { t: 14, r: 10, b: 28, l: o.left || 52 };
+    const s = svg("svg", { viewBox: `0 0 ${w} ${H}`, role: "img", "aria-label": o.aria || "" }, host);
+    const band = (w - m.l - m.r) / Y.length;
+    const bw = Math.min(band * (narrow ? 0.74 : 0.66), 54);
+    const y = lin(o.yMin, o.yMax, H - m.b, m.t);
+    const g = svg("g", {}, s);
+    for (const t of o.ticks || ticks(o.yMin, o.yMax, narrow ? 4 : 5)) {
+      svg("line", { x1: m.l, x2: w - m.r, y1: y(t), y2: y(t), style: `stroke:var(${t === 0 ? "--ink-3" : "--rule"});stroke-width:1` }, g);
+      const tx = svg("text", { x: m.l - 8, y: y(t) + 4, "text-anchor": "end", style: "fill:var(--ink-3);font-size:11.5px" }, g);
+      tx.textContent = o.yFmt(t);
+    }
+    Y.forEach((yr, i) => {
+      if (narrow && o.thinLabels && i % 2) return;
+      const tx = svg("text", { x: m.l + band * (i + 0.5), y: H - 8, "text-anchor": "middle", style: "fill:var(--ink-3);font-size:11.5px" }, g);
+      tx.textContent = narrow ? "’" + String(yr).slice(2) : yr;
+    });
+    Y.forEach((yr, i) => {
+      const cx = m.l + band * (i + 0.5);
+      let pos = 0, neg = 0;
+      o.series.forEach((se, k) => {
+        const v = se.values[i] || 0;
+        if (!v) return;
+        const base = v >= 0 ? pos : neg;
+        const top = base + v;
+        if (v >= 0) pos = top; else neg = top;
+        const y0 = y(base), y1 = y(top);
+        const hgt = Math.max(0.5, Math.abs(y0 - y1) - (o.series.length > 1 ? 2 : 0));
+        const color = typeof se.color === "function" ? se.color(v) : se.color;
+        const r = svg("rect", {
+          x: cx - bw / 2, width: bw, y: Math.min(y0, y1) + (o.series.length > 1 && v >= 0 ? 0 : 0), height: hgt,
+          rx: o.series.length > 1 ? 1.5 : 3, style: `fill:var(--${color});cursor:default`,
+        }, g);
+        r.addEventListener("pointermove", (evt) => { r.style.opacity = .82; showTip(evt, o.tooltip(i, k)); });
+        r.addEventListener("pointerdown", (evt) => showTip(evt, o.tooltip(i, k)));
+        r.addEventListener("pointerleave", () => { r.style.opacity = 1; hideTip(); });
+      });
+      if (o.inLabel) {
+        const lab = o.inLabel(i);
+        if (lab && !narrow) {
+          const t = svg("text", { x: cx, y: y(lab.at) + 4, "text-anchor": "middle", style: "fill:#fff;font-size:11.5px;font-weight:600;pointer-events:none" }, g);
+          t.textContent = lab.text;
+        }
+      }
+    });
+  }
+
+  // Dumbbell: start share (hollow) to end share (solid) per row.
+  function dumbbell(host, w, o) {
+    host.innerHTML = "";
+    const narrow = w < 560;
+    const rowH = narrow ? 50 : 36;
+    const labelW = narrow ? 0 : Math.min(230, w * 0.32);
+    const m = { t: 22, r: 64, b: 8, l: labelW + 8 };
+    const H = m.t + rowH * o.rows.length + m.b;
+    const s = svg("svg", { viewBox: `0 0 ${w} ${H}`, role: "img", "aria-label": o.aria || "" }, host);
+    const max = Math.max(...o.rows.flatMap((r) => [r.a, r.b])) * 1.08;
+    const x = lin(0, max, m.l, w - m.r);
+    const g = svg("g", {}, s);
+    for (const t of ticks(0, max, narrow ? 3 : 5)) {
+      svg("line", { x1: x(t), x2: x(t), y1: m.t - 6, y2: H - m.b, style: "stroke:var(--rule-2);stroke-width:1" }, g);
+      const tx = svg("text", { x: x(t), y: 12, "text-anchor": "middle", style: "fill:var(--ink-3);font-size:11px" }, g);
+      tx.textContent = pct(t);
+    }
+    o.rows.forEach((r, i) => {
+      const cy = m.t + rowH * i + (narrow ? 32 : rowH / 2);
+      const row = svg("g", { style: "cursor:default" }, g);
+      svg("rect", { x: 0, y: m.t + rowH * i, width: w, height: rowH, style: "fill:transparent" }, row);
+      const lt = svg("text", narrow
+        ? { x: 0, y: m.t + rowH * i + 14, style: "fill:var(--ink);font-size:12.5px;font-weight:500" }
+        : { x: labelW, y: cy + 4, "text-anchor": "end", style: "fill:var(--ink);font-size:12.5px;font-weight:500" }, row);
+      lt.textContent = r.label;
+      const code = svg("tspan", { style: "fill:var(--ink-3);font-family:var(--f-mono);font-size:11px" }, lt);
+      code.textContent = "  HS " + r.code;
+      const up = r.b >= r.a;
+      svg("line", { x1: x(r.a), x2: x(r.b), y1: cy, y2: cy, style: `stroke:var(--${o.color});stroke-width:4;opacity:.35;stroke-linecap:round` }, row);
+      svg("circle", { cx: x(r.a), cy, r: 5, style: "fill:var(--panel);stroke:var(--ink-3);stroke-width:2" }, row);
+      svg("circle", { cx: x(r.b), cy, r: 6, style: `fill:var(--${o.color});stroke:var(--panel);stroke-width:2` }, row);
+      const vt = svg("text", { x: Math.max(x(r.a), x(r.b)) + 10, y: cy + 4, style: "fill:var(--ink-2);font-size:11.5px;font-weight:600" }, row);
+      const dpp = (r.b - r.a) * 100;
+      vt.textContent = Math.abs(dpp) < 0.05 ? "no change" : (up ? "+" : minus) + Math.abs(dpp).toFixed(1) + " pp";
+      row.addEventListener("pointermove", (evt) => showTip(evt, o.tooltip(r)));
+      row.addEventListener("pointerdown", (evt) => showTip(evt, o.tooltip(r)));
+      row.addEventListener("pointerleave", hideTip);
+    });
+  }
+
+  function sparkline(el, values, color) {
+    const w = 200, H = 44, pad = 4;
+    const s = svg("svg", { viewBox: `0 0 ${w} ${H}`, preserveAspectRatio: "none", "aria-hidden": "true" }, el);
+    const mn = Math.min(...values), mx = Math.max(...values);
+    const x = lin(0, values.length - 1, pad, w - pad), y = lin(mn - (mx - mn) * 0.1, mx + (mx - mn) * 0.1, H - pad, pad);
+    const p = values.map((v, i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+    svg("polygon", { points: `${x(0)},${H} ${p.join(" ")} ${x(values.length - 1)},${H}`, style: `fill:var(--${color});opacity:.1` }, s);
+    svg("polyline", { points: p.join(" "), style: `fill:none;stroke:var(--${color});stroke-width:2;vector-effect:non-scaling-stroke;stroke-linejoin:round` }, s);
+    svg("circle", { cx: x(values.length - 1), cy: y(last(values)), r: 3.5, style: `fill:var(--${color});stroke:var(--panel);stroke-width:1.5;vector-effect:non-scaling-stroke` }, s);
+  }
+
+  function table(host, head, rows) {
+    host.innerHTML = `<table><thead><tr>${head.map((c) => `<th scope="col">${c}</th>`).join("")}</tr></thead><tbody>${rows.map((r) => `<tr>${r.map((c, i) => i === 0 ? `<th scope="row" style="text-align:left;font:500 var(--t-sm)/1.3 var(--f-body);color:var(--ink);text-transform:none;letter-spacing:0">${c}</th>` : `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+  }
+
+  function segmented(host, onChange) {
+    host.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+      host.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+      onChange(b.dataset.v);
+    }));
+  }
+
+  /* ---------------- data shortcuts ---------------- */
+  const B = D.balance;
+  const b0 = B[0], bN = last(B), bP = B[B.length - 2];
+  const conc = (flow, year) => D.concentration.find((r) => r.flow === flow && r.year === year);
+
+  /* ---------------- masthead ---------------- */
+  const m = D.meta;
+  const decl = [
+    ["Reporter", "Egypt", "UN M49 code 818"],
+    ["Period", `${Y[0]}–${last(Y)}`, "Annual, calendar years"],
+    ["Valuation", "Current USD", "Imports CIF · exports FOB"],
+    ["Classification", "HS2012 → HS2022", "Break between 2021 and 2022"],
+    ["Records", m.silver_rows.toLocaleString("en-US"), `${m.raw_files} API pulls · ${m.partners} partner areas`],
+    ["Data checks", "All passed", `Pulled ${m.extracted}`],
+  ];
+  $("#decl").innerHTML = decl.map(([k, v, s]) => `<div><dt>${k}</dt><dd>${v}<small>${s}</small></dd></div>`).join("");
+  $("#built").textContent = m.built;
+
+  /* ---------------- KPIs ---------------- */
+  const imp = B.map((r) => r.imports_usd), exp = B.map((r) => r.exports_usd), bal = B.map((r) => r.balance_usd), cov = B.map((r) => r.export_coverage_ratio);
+  const kpis = [
+    { label: "Imports, " + bN.year, color: "s2", value: bn(bN.imports_usd), delta: `<b>${signedPct(bN.imports_yoy)}</b> vs ${bP.year} · ${bn(b0.imports_usd)} in ${b0.year}`, spark: imp },
+    { label: "Exports, " + bN.year, color: "s1", value: bn(bN.exports_usd), delta: `<b>${signedPct(bN.exports_yoy)}</b> vs ${bP.year} · ${bn(b0.exports_usd)} in ${b0.year}`, spark: exp },
+    { label: "Trade deficit, " + bN.year, color: "crit", value: bn(bN.balance_usd), delta: `${bn(b0.balance_usd)} in ${b0.year} · widest ${bn(Math.min(...bal))}`, spark: bal },
+    { label: "Exports cover imports", color: "accent", value: pct(bN.export_coverage_ratio), delta: `up from ${pct(b0.export_coverage_ratio)} in ${b0.year} · peak ${pct(Math.max(...cov))}`, spark: cov },
+  ];
+  const kh = $("#kpis");
+  kpis.forEach((k) => {
+    const el = h(`<div class="kpi"><div class="label"><i style="background:${cssVar(k.color)}"></i>${k.label}</div><div class="value">${k.value}</div><div class="delta">${k.delta}</div><div class="sp"></div></div>`);
+    kh.appendChild(el);
+    sparkline(el.querySelector(".sp"), k.spark, k.color);
+  });
+
+  /* ---------------- Insights ---------------- */
+  const ci0 = conc("import", Y[0]), ciN = conc("import", last(Y));
+  const gas = D.energy["2711"];
+  const russia = D.wheat.find((w) => w.name === "Russia");
+  const mirX = D.mirror_year.export.ratio;
+  const hs71 = D.mix.export.find((r) => r.hs2 === "71");
+  const insights = [
+    { kind: "risk", icon: "alert", tag: "Risk", href: "#balance", h: `The deficit is stuck near ${bn(-bN.balance_usd, 0)} a year`, p: `Exports nearly doubled since ${Y[0]}, but imports hit a record ${bn(bN.imports_usd)} in ${bN.year}. Egypt still needs about $50bn of foreign currency a year from other sources.` },
+    { kind: "watch", icon: "eye", tag: "Watch", href: "#partners", h: `Top 5 suppliers now ship ${pct(ciN.top5_share)} of imports`, p: `Up from ${pct(ci0.top5_share)} in ${Y[0]}. China alone is ${pct(ciN.top1_share)}; China, the USA and Saudi Arabia together almost doubled their share.` },
+    { kind: "risk", icon: "alert", tag: "Risk", href: "#energy", h: `Gas swung by ${bn(gas.exports[yi(2022)] - gas.imports[yi(2022)] - (last(gas.exports) - last(gas.imports)), 1)} in three years`, p: `Egypt earned ${bn(gas.exports[yi(2022)])} from gas exports in 2022. By ${last(Y)} it was paying ${bn(last(gas.imports))} to import it.` },
+    { kind: "watch", icon: "eye", tag: "Watch", href: "#wheat", h: `${pct(russia.share[yi(2024)])} of the wheat bill came from Russia in 2024`, p: `Up from ${pct(russia.share[0])} in ${Y[0]}. The 2022 war did not diversify Egypt's supply; it concentrated it.` },
+    { kind: "shift", icon: "shift", tag: "Shift", href: "#products", h: `Gold is now ${pct(last(hs71.share))} of exports`, p: `Precious metals and stones (HS 71) grew from ${pct(hs71.share[0], 1)} of exports in ${Y[0]} to ${bn(last(hs71.value))} in ${last(Y)}, overtaking fuels as the largest export chapter.` },
+    { kind: "risk", icon: "alert", tag: "Risk", href: "#mirror", h: `Partners record up to ${pct(1 / Math.min(...mirX) - 1)} more than Egypt's exports`, p: `Partners consistently report more imports from Egypt than Egypt reports as exports, beyond what freight costs explain. The gap widened after 2022.` },
+  ];
+  $("#insights").innerHTML = insights.map((it) => `<a class="insight" href="${it.href}"><span class="chip ${it.kind}"><svg><use href="#i-${it.icon}"/></svg>${it.tag}</span><h3>${it.h}</h3><p>${it.p}</p><span class="go">See the evidence →</span></a>`).join("");
+
+  /* ---------------- Q1 Balance ---------------- */
+  $("#bal-ctx").innerHTML = `Between ${Y[0]} and ${last(Y)} exports grew from <b>${bn(b0.exports_usd)}</b> to <b>${bn(bN.exports_usd)}</b>, while imports grew from ${bn(b0.imports_usd)} to a record <b>${bn(bN.imports_usd)}</b>. Imports dropped after each currency shock (${signedPct(B[yi(2017)].imports_yoy)} in 2017, ${signedPct(B[yi(2023)].imports_yoy)} in 2023) and recovered within a year both times.`;
+  legend($("#bal-legend"), [{ color: "s2", label: "Imports", kind: "line" }, { color: "s1", label: "Exports", kind: "line" }, { color: "s2", label: "Trade deficit (gap)" }]);
+  $("#bal-legend").lastElementChild.querySelector("i").style.opacity = .25;
+  mount($("#bal-chart"), (host, w) => lineChart(host, w, {
+    aria: "Line chart of Egypt's imports and exports, 2014 to 2025",
+    series: [{ name: "Imports", color: "s2", values: imp.map((v) => v / 1e9) }, { name: "Exports", color: "s1", values: exp.map((v) => v / 1e9) }],
+    yMin: 0, yMax: 110, ticks: [0, 20, 40, 60, 80, 100], yFmt: (t) => "$" + t + "bn",
+    area: [0, 1], areaLabel: { year: 2019, text: (i) => "Deficit " + bn(-bal[i] * 1, 0).replace(minus, "") },
+    events: [{ x: 2016, label: "EGP float" }, { x: 2022, label: "FX shortage" }],
+    endLabels: true, endWidth: 118, endLabel: (se, v) => `${se.name} $${v.toFixed(0)}bn`,
+    tooltip: (i) => `<div class="th">${Y[i]}</div>${tipRow("s2", "Imports", bn(imp[i]))}${tipRow("s1", "Exports", bn(exp[i]))}<div class="note">Deficit ${bn(-bal[i]).replace(minus, "")} · exports cover ${pct(cov[i])} of imports</div>`,
+  }));
+  table($("#bal-table"), ["Year", "Imports", "Exports", "Balance", "Exports / imports", "Imports YoY", "Exports YoY", "HS version"],
+    B.map((r) => [r.year, bn(r.imports_usd), bn(r.exports_usd), bn(r.balance_usd), pct(r.export_coverage_ratio), r.imports_yoy == null ? "–" : signedPct(r.imports_yoy), r.exports_yoy == null ? "–" : signedPct(r.exports_yoy), r.hs_version]));
+
+  /* ---------------- Q2 Partners ---------------- */
+  const chinaShare = D.partners.import.find((p) => p.name === "China").share;
+  $("#par-ctx").innerHTML = `China's share of Egypt's imports rose from <b>${pct(chinaShare[0], 1)}</b> to <b>${pct(last(chinaShare), 1)}</b>. The concentration index for imports rose from ${ci0.hhi.toFixed(0)} to <b>${ciN.hhi.toFixed(0)}</b>, the highest in the period. More dependence on fewer suppliers means more exposure to any one country's prices, policies or shipping routes.`;
+  let parFlow = "import";
+  const parChart = mount($("#par-chart"), (host, w) => {
+    const P = D.partners[parFlow];
+    legend($("#par-legend"), P.map((p, k) => ({ color: SERIES[k], label: p.name, kind: "line" })));
+    const max = Math.max(...P.flatMap((p) => p.share.filter((v) => v != null)));
+    lineChart(host, w, {
+      aria: `Share of Egypt's ${parFlow}s by partner`,
+      series: P.map((p, k) => ({ name: p.name, color: SERIES[k], values: p.share })),
+      yMin: 0, yMax: Math.ceil(max * 20) / 20 + 0.0001, yFmt: (t) => pct(t),
+      endLabels: true, endWidth: 112, endLabel: (se, v) => `${se.name} ${pct(v)}`,
+      tooltip: (i) => `<div class="th">${Y[i]} · share of ${parFlow}s</div>` + P.map((p, k) => ({ p, k })).sort((a, b) => (b.p.share[i] || 0) - (a.p.share[i] || 0)).map(({ p, k }) => tipRow(SERIES[k], p.name, `${pct(p.share[i], 1)} · ${bn(p.value[i])}`)).join(""),
+    });
+    table($("#par-table"), ["Partner", ...Y], P.map((p) => [p.name, ...p.share.map((v) => pct(v, 1))]));
+  });
+  segmented($("#par-flow"), (v) => { parFlow = v; parChart.render(); });
+  const hhiI = D.concentration.filter((r) => r.flow === "import"), hhiX = D.concentration.filter((r) => r.flow === "export");
+  $("#hhi-stats").innerHTML = `<div class="stat"><div class="k">Imports HHI</div><div class="v">${ciN.hhi.toFixed(0)}</div><div class="s">${ci0.hhi.toFixed(0)} in ${Y[0]}</div></div><div class="stat"><div class="k">Top-5 import share</div><div class="v">${pct(ciN.top5_share)}</div><div class="s">${pct(ci0.top5_share)} in ${Y[0]}</div></div>`;
+  legend($("#hhi-legend"), [{ color: "s2", label: "Imports", kind: "line" }, { color: "s1", label: "Exports", kind: "line" }]);
+  mount($("#hhi-chart"), (host, w) => lineChart(host, w, {
+    aria: "Partner concentration index for imports and exports", height: 190, left: 40,
+    series: [{ name: "Imports", color: "s2", values: hhiI.map((r) => r.hhi) }, { name: "Exports", color: "s1", values: hhiX.map((r) => r.hhi) }],
+    yMin: 0, yMax: 800, ticks: [0, 200, 400, 600, 800], yFmt: (t) => t,
+    tooltip: (i) => `<div class="th">${Y[i]} · concentration (HHI)</div>${tipRow("s2", "Imports", hhiI[i].hhi.toFixed(0))}${tipRow("s1", "Exports", hhiX[i].hhi.toFixed(0))}<div class="note">Largest supplier: ${hhiI[i].top1_partner} (${pct(hhiI[i].top1_share, 1)})</div>`,
+  }));
+
+  /* ---------------- Q3 Products ---------------- */
+  const fuelI = D.mix.import.find((r) => r.hs2 === "27");
+  $("#pro-ctx").innerHTML = `Mineral fuels (HS 27) went from <b>${pct(fuelI.share[0], 1)}</b> to <b>${pct(last(fuelI.share), 1)}</b> of imports (${bn(fuelI.value[0])} → ${bn(last(fuelI.value))}). On the export side, gold and precious metals (HS 71) jumped from ${pct(hs71.share[0], 1)} to <b>${pct(last(hs71.share), 1)}</b>. Most other chapters barely moved.`;
+  const proYear = $("#pro-year");
+  proYear.innerHTML = Y.slice(1).reverse().map((y) => `<option value="${y}">${y}</option>`).join("");
+  let proFlow = "import";
+  const proChart = mount($("#pro-chart"), (host, w) => {
+    const yr = +proYear.value, i = yi(yr);
+    const rows = D.mix[proFlow].map((r) => ({ label: r.name, code: r.hs2, full: r.full, a: r.share[0], b: r.share[i], va: r.value[0], vb: r.value[i] })).sort((a, b) => b.b - a.b);
+    const color = FLOW_COLOR[proFlow];
+    legend($("#pro-legend"), [{ label: `${Y[0]} share`, kind: "hollow" }, { color, label: `${yr} share` }]);
+    dumbbell(host, w, {
+      aria: `Change in share of ${proFlow}s by product chapter, ${Y[0]} vs ${yr}`, rows, color,
+      tooltip: (r) => `<div class="th">HS ${r.code} · ${r.label}</div><div style="color:var(--ink-3);font-size:var(--t-xs);margin-bottom:6px">${r.full}</div>${tipRow("ink-3", String(Y[0]), `${pct(r.a, 1)} · ${bn(r.va)}`)}${tipRow(color, String(yr), `${pct(r.b, 1)} · ${bn(r.vb)}`)}`,
+    });
+    table($("#pro-table"), ["HS chapter", ...Y], D.mix[proFlow].map((r) => [`${r.hs2} · ${r.name}`, ...r.value.map((v) => bn(v))]));
+  });
+  segmented($("#pro-flow"), (v) => { proFlow = v; proChart.render(); });
+  proYear.addEventListener("change", () => proChart.render());
+
+  /* ---------------- Q4 Energy ---------------- */
+  const g22 = gas.exports[yi(2022)] - gas.imports[yi(2022)], gN = last(gas.exports) - last(gas.imports);
+  $("#ene-ctx").innerHTML = `In 2022 Egypt sold <b>${bn(gas.exports[yi(2022)])}</b> of gas, mostly LNG shipped to Europe during its energy crunch. Falling domestic output and rising power demand then reversed the flow: by ${last(Y)} Egypt was importing <b>${bn(last(gas.imports))}</b> of gas and exporting only ${bn(last(gas.exports))}. Refined fuels add another ${bn(-(last(D.energy["2710"].exports) - last(D.energy["2710"].imports)))} deficit.`;
+  legend($("#ene-legend"), [{ color: "s1", label: "Exports", kind: "line" }, { color: "s2", label: "Imports", kind: "line" }]);
+  let eneHs = "2711";
+  const eneCharts = [];
+  const drawEnergy = () => eneCharts.forEach((c) => c.render());
+  eneCharts.push(mount($("#ene-chart"), (host, w) => {
+    const E = D.energy[eneHs];
+    const max = Math.max(...E.exports, ...E.imports) / 1e9;
+    lineChart(host, w, {
+      aria: `${E.name} exports and imports`,
+      series: [{ name: "Exports", color: "s1", values: E.exports.map((v) => v / 1e9) }, { name: "Imports", color: "s2", values: E.imports.map((v) => v / 1e9) }],
+      yMin: 0, yMax: Math.ceil(max / 2) * 2, yFmt: (t) => "$" + t + "bn",
+      endLabels: true, endWidth: 122, endLabel: (se, v) => `${se.name} $${v.toFixed(1)}bn`,
+      tooltip: (i) => `<div class="th">${Y[i]} · ${E.name} (HS ${eneHs})</div>${tipRow("s1", "Exports", bn(E.exports[i]))}${tipRow("s2", "Imports", bn(E.imports[i]))}<div class="note">Net ${bn(E.exports[i] - E.imports[i])}</div>`,
+    });
+    table($("#ene-table"), ["Year", "Exports", "Imports", "Net"], Y.map((y, i) => [y, bn(E.exports[i]), bn(E.imports[i]), bn(E.exports[i] - E.imports[i])]));
+  }));
+  eneCharts.push(mount($("#ene-net"), (host, w) => {
+    const E = D.energy[eneHs];
+    const net = E.exports.map((v, i) => (v - E.imports[i]) / 1e9);
+    const best = Math.max(...net), worst = Math.min(...net);
+    const bi = net.indexOf(best), wi = net.indexOf(worst);
+    $("#ene-stats").innerHTML = `<div class="stat"><div class="k">Best year · ${Y[bi]}</div><div class="v ${best >= 0 ? "pos" : "neg"}">${bn(best * 1e9)}</div></div><div class="stat"><div class="k">${last(Y)}</div><div class="v ${last(net) >= 0 ? "pos" : "neg"}">${bn(last(net) * 1e9)}</div></div>`;
+    const lo = Math.floor(Math.min(0, worst) / 2) * 2, hi = Math.ceil(Math.max(0, best) / 2) * 2;
+    barChart(host, w, {
+      aria: `${E.name} net trade position by year`, height: 190, left: 54, thinLabels: true,
+      series: [{ name: "Net", color: (v) => v >= 0 ? "good" : "crit", values: net }],
+      yMin: lo, yMax: hi, ticks: ticks(lo, hi, 4).concat(lo < 0 && hi > 0 ? [] : []), yFmt: (t) => (t < 0 ? minus : "") + "$" + Math.abs(t) + "bn",
+      tooltip: (i) => `<div class="th">${Y[i]} · net position</div><div>${net[i] >= 0 ? "Surplus" : "Deficit"} of <b>${bn(Math.abs(net[i]) * 1e9)}</b></div>`,
+    });
+  }));
+  segmented($("#ene-hs"), (v) => { eneHs = v; drawEnergy(); });
+
+  /* ---------------- Q5 Wheat ---------------- */
+  const wheatTotal = Y.map((_, i) => D.wheat.reduce((s, w) => s + w.value[i], 0));
+  const ukr = D.wheat.find((w) => w.name === "Ukraine");
+  $("#whe-ctx").innerHTML = `Egypt's wheat bill grew from ${bn(wheatTotal[0])} to a peak of <b>${bn(Math.max(...wheatTotal))}</b> in ${Y[wheatTotal.indexOf(Math.max(...wheatTotal))]}. Russia's share rose from <b>${pct(russia.share[0])}</b> to <b>${pct(russia.share[yi(2024)])}</b> in 2024. Ukraine fell to ${pct(ukr.share[yi(2022)])} in 2022, when the war closed its ports, and recovered to ${pct(last(ukr.share))} in ${last(Y)}. A disruption in one Black Sea country now hits most of Egypt's bread supply.`;
+  const wheatColors = ["s1", "s2", "s3", "s4", "s-other"];
+  legend($("#whe-legend"), D.wheat.map((w, k) => ({ color: wheatColors[k], label: w.name })));
+  let wheMode = "share";
+  const wheChart = mount($("#whe-chart"), (host, w) => {
+    const isShare = wheMode === "share";
+    barChart(host, w, {
+      aria: "Egypt's wheat imports by origin, stacked by year",
+      series: D.wheat.map((s, k) => ({ name: s.name, color: wheatColors[k], values: isShare ? s.share : s.value.map((v) => v / 1e9) })),
+      yMin: 0, yMax: isShare ? 1 : 5, ticks: isShare ? [0, .25, .5, .75, 1] : [0, 1, 2, 3, 4, 5],
+      yFmt: (t) => isShare ? pct(t) : "$" + t + "bn",
+      inLabel: (i) => ({ at: isShare ? russia.share[i] / 2 : russia.value[i] / 2e9, text: isShare ? pct(russia.share[i]) : "" }),
+      tooltip: (i, k) => `<div class="th">${Y[i]} · wheat imports</div>` + D.wheat.map((s, j) => { const r = tipRow(wheatColors[j], s.name, `${pct(s.share[i])} · ${bn(s.value[i], 2)}`); return j === k ? r.replace('class="row"', 'class="row" style="font-weight:600"') : r; }).join("") + `<div class="note">Total bill ${bn(wheatTotal[i], 2)}</div>`,
+    });
+  });
+  segmented($("#whe-mode"), (v) => { wheMode = v; wheChart.render(); });
+  table($("#whe-table"), ["Origin", ...Y], [...D.wheat.map((s) => [s.name, ...s.value.map((v, i) => `${bn(v, 2)} (${pct(s.share[i])})`)]), ["Total", ...wheatTotal.map((v) => bn(v, 2))]]);
+
+  /* ---------------- Q6 Mirror ---------------- */
+  const MI = D.mirror_year.import, MX = D.mirror_year.export;
+  const sortedX = [...MX.ratio].sort((a, b) => a - b);
+  $("#mir-low").textContent = `${sortedX[1].toFixed(2)}–${sortedX[sortedX.length - 3].toFixed(2)}×`;
+  legend($("#mir-legend"), [{ color: "s2", label: "Imports: Egypt ÷ partners", kind: "line" }, { color: "s1", label: "Exports: Egypt ÷ partners", kind: "line" }, { label: "Normal range for imports (CIF/FOB)", kind: "band" }]);
+  mount($("#mir-chart"), (host, w) => lineChart(host, w, {
+    aria: "Ratio of Egypt-reported to partner-reported trade values",
+    series: [{ name: "Imports", color: "s2", values: MI.ratio }, { name: "Exports", color: "s1", values: MX.ratio }],
+    yMin: 0.7, yMax: 1.2, ticks: [0.7, 0.8, 0.9, 1.0, 1.1, 1.2], ref: 1.0, band: [1.0, 1.1], yFmt: (t) => t.toFixed(1) + "×",
+    endLabels: true, endWidth: 112, endLabel: (se, v) => `${se.name} ${v.toFixed(2)}×`,
+    tooltip: (i) => `<div class="th">${Y[i]} · Egypt vs partners</div>${tipRow("s2", "Imports", x2(MI.ratio[i]))}<div style="color:var(--ink-3);font-size:var(--t-xs);margin:0 0 4px 18px">Egypt ${bn(MI.egypt[i])} · partners ${bn(MI.partner[i])}</div>${tipRow("s1", "Exports", x2(MX.ratio[i]))}<div style="color:var(--ink-3);font-size:var(--t-xs);margin-left:18px">Egypt ${bn(MX.egypt[i])} · partners ${bn(MX.partner[i])}</div><div class="note">${MX.partners[i]} partners matched on exports, ${MI.partners[i]} on imports</div>`,
+  }));
+  const ratioClass = (r) => r == null ? "warn" : (r > 1.5 || r < 0.67) ? "crit" : (r > 1.15 || r < 0.85) ? "warn" : "ok";
+  const maxV = Math.max(...D.outliers.flatMap((o) => [o.egypt_reported_usd || 0, o.partner_reported_usd]));
+  $("#mir-outliers").innerHTML = `<thead><tr><th scope="col">Partner</th><th scope="col">Egypt's flow</th><th scope="col">Egypt reports</th><th scope="col">Partner reports</th><th scope="col">Gap</th><th scope="col">Ratio</th></tr></thead><tbody>` +
+    D.outliers.slice(0, 8).map((o) => `<tr><td><b style="font-weight:600">${o.partner_name}</b></td><td style="text-align:left;text-transform:capitalize">${o.egypt_flow}s</td><td>${bn(o.egypt_reported_usd, 2)} <span class="bar" style="width:${(o.egypt_reported_usd / maxV * 70).toFixed(0)}px;background:var(--${FLOW_COLOR[o.egypt_flow]})"></span></td><td>${bn(o.partner_reported_usd, 2)} <span class="bar" style="width:${(o.partner_reported_usd / maxV * 70).toFixed(0)}px;background:var(--s-other)"></span></td><td>${bn(o.gap_usd, 2)}</td><td><span class="ratio ${ratioClass(o.egypt_to_partner_ratio)}">${x2(o.egypt_to_partner_ratio)}</span></td></tr>`).join("") + "</tbody>";
+  table($("#mir-table"), ["Year", "Imports: Egypt", "Imports: partners", "Ratio", "Exports: Egypt", "Exports: partners", "Ratio", "Partners matched"],
+    Y.map((y, i) => [y, bn(MI.egypt[i]), bn(MI.partner[i]), x2(MI.ratio[i]), bn(MX.egypt[i]), bn(MX.partner[i]), x2(MX.ratio[i]), `${MI.partners[i]} / ${MX.partners[i]}`]));
+
+  /* ---------------- Integrity ---------------- */
+  const C = m.checks;
+  const checks = [
+    ["Partner detail adds up", `Every partner row sums to Egypt's World total. Largest gap in any year: ${(C.partner_dev * 100).toFixed(3)}%.`],
+    ["Product detail adds up", `Every HS chapter row sums to Egypt's World total. Largest gap in any year: ${(C.hs2_dev * 100).toFixed(3)}%.`],
+    ["Nothing missing", `All ${m.jobs.length} data pulls have all ${Y.length} years (${m.raw_files} files).`],
+    ["Nothing cut off", `The free API returns at most 500 rows per call. The largest response had ${C.max_rows_per_call}, so no response was truncated.`],
+    ["No double counting", `${C.duplicates} duplicate records across ${m.silver_rows.toLocaleString("en-US")} cleaned rows.`],
+    ["Non-countries separated", `Bunkers, Free Zones and unidentified areas are flagged and kept out of partner rankings.`],
+  ];
+  $("#checks").innerHTML = checks.map(([t, d]) => `<div class="check"><span class="chip pass"><svg><use href="#i-check"/></svg>Pass</span><div class="t">${t}</div><div class="d">${d}</div></div>`).join("");
+  $("#hs-track").innerHTML = B.map((r) => `<div class="${r.hs_version === "H6" ? "h6" : "h4"}" title="${r.year}: ${r.hs_version === "H6" ? "HS2022" : "HS2012"}">’${String(r.year).slice(2)}</div>`).join("");
+  const Q = D.quality;
+  table($("#int-table"), ["Year", "Flow", "World total", "Partners sum", "Chapters sum", "Chapters", "Non-country share"],
+    Q.map((r) => [r.year, r.flow, bn(r.world_total_usd), pct(r.partner_sum_ratio, 2), pct(r.hs2_sum_ratio, 2), r.hs2_chapters, pct(r.non_country_share, 1)]));
+
+  /* ---------------- About: pipeline ---------------- */
+  const stages = [
+    ["Source", "UN Comtrade API", "Public endpoint, rate-limited, retried"],
+    ["Raw", `${m.raw_files} JSON files`, "4 queries × 12 years, kept as received"],
+    ["Bronze", "As-is tables", "Loaded into DuckDB unchanged"],
+    ["Silver", `${m.silver_rows.toLocaleString("en-US")} rows`, "Typed, renamed, de-duplicated"],
+    ["Gold", `${m.gold_tables} tables`, "Star schema: facts + partner and HS dimensions"],
+    ["Analysis", "9 SQL queries", "Feeding this dashboard and the README"],
+  ];
+  $("#pipeline").innerHTML = stages.map(([k, n, d], i) => `${i ? '<div class="arrow" aria-hidden="true"><svg width="16" height="16"><use href="#i-arrow"/></svg></div>' : ""}<div class="stage"><span class="k">${k}</span><span class="n">${n}</span><span class="d">${d}</span></div>`).join("");
+
+  /* ---------------- theme + index ---------------- */
+  const root = document.documentElement;
+  $("#theme-btn").addEventListener("click", () => {
+    const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("egypt-trade-theme", root.dataset.theme); } catch (e) { /* storage unavailable */ }
+  });
+  try { const t = localStorage.getItem("egypt-trade-theme"); if (t && !root.dataset.theme) root.dataset.theme = t; } catch (e) { /* storage unavailable */ }
+
+  const links = [...document.querySelectorAll("#index a")];
+  const targets = links.map((a) => document.querySelector(a.getAttribute("href")));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const i = targets.indexOf(e.target);
+      links.forEach((a, j) => a.classList.toggle("on", j === i));
+      // Scroll only the nav strip sideways. scrollIntoView() here would also move the page
+      // (the link sits in a sticky bar) and cancel the reader's scroll momentum.
+      const strip = links[i].parentElement, a = links[i];
+      if (a.offsetLeft < strip.scrollLeft || a.offsetLeft + a.offsetWidth > strip.scrollLeft + strip.clientWidth) {
+        strip.scrollTo({ left: a.offsetLeft - 16, behavior: "auto" });
+      }
+    });
+  }, { rootMargin: "-30% 0px -60% 0px" });
+  targets.forEach((t) => t && io.observe(t));
+
+  charts.forEach((c) => ro.observe(c.host));
+  addEventListener("scroll", () => { if (tip.classList.contains("on")) hideTip(); }, { passive: true });
+})();
+</script>
+
+</body>
+</html>
