@@ -8,7 +8,7 @@
 
 ![Egypt imports and exports 2014–2025: imports rose from $71bn to $101bn and exports from $27bn to $51bn, leaving a deficit near $50bn.](outputs/charts/trade_balance.png)
 
-<p align="center"><b><a href="docs/dashboard.html">Open the interactive dashboard &rarr;</a></b><br>
+<p align="center"><b><a href="https://4maxr.github.io/egypt-trade-comtrade/dashboard.html">Open the interactive dashboard &rarr;</a></b><br>
 <sub>Self-contained HTML · hover for exact values · imports/exports toggles · data tables · light &amp; dark</sub></p>
 
 ---
